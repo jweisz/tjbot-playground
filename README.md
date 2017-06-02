@@ -8,7 +8,7 @@ The TJBot Playground communciates with your TJBot using Bluetooth Low Energy (BL
 
 # Installation
 
-The easiest way to get this playground on your iPad is to [download this repository](https://github.com/jweisz/tjbot-playground/master/archive.zip) to your Mac and then use AirDrop to copy the playground to your iPad. After downloading, right click the “TJBot.playgroundbook” file, and choose “Share > AirDrop.” A list will open up which should show your iPad. Click your iPad to transfer the Playground.
+The easiest way to get this playground on your iPad is to [download this repository](https://github.com/jweisz/tjbot-playground/archive/master.zip) to your Mac and then use AirDrop to copy the playground to your iPad. After downloading, right click the “TJBot.playgroundbook” file, and choose “Share > AirDrop.” A list will open up which should show your iPad. Click your iPad to transfer the Playground.
 
 > Note: Make sure AirDrop on your iPad is turned on first!
 
