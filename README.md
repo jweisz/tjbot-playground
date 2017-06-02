@@ -2,6 +2,8 @@
 
 > Swift Playground for interacting with TJBot! 🤖
 
+<img src="images/playground.png" width="75%"/>
+
 Interact with TJBot in this Swift Playground! This project showcases how Swift can be used to control IoT devices such as TJBot. Learn how to program TJBot and make him come to life using IBM Watson services such as [Speech to Text](https://www.ibm.com/watson/developercloud/speech-to-text.html), [Visual Recognition](https://www.ibm.com/watson/developercloud/visual-recognition.html), [Language Translator](https://www.ibm.com/watson/developercloud/language-translator.html), and more!
 
 The TJBot Playground communciates with your TJBot using Bluetooth Low Energy (BLE), so you can program your TJBot just by sitting next to him!
@@ -12,7 +14,7 @@ The easiest way to get this playground on your iPad is to [download this reposit
 
 > Note: Make sure AirDrop on your iPad is turned on first!
 
-In addition to this Playground, you will need to install the [tjbot-daemon](https://github.com/jweisz/tjbot-daemon) project on your TJBot. Please refer to the [installation instructions ](https://github.com/jweisz/tjbot-daemon/blob/master/README.md) to learn how to set up your TJBot with the daemon.
+In addition to this Playground, you will need to install the [tjbot-daemon](https://github.com/jweisz/tjbot-daemon) project on your TJBot. Please refer to the [installation instructions](https://github.com/jweisz/tjbot-daemon/blob/master/README.md) to learn how to set up your TJBot with the daemon.
 
 >  🤖 No robot, no problem! You can still explore the first two chapters of this playground without a physical TJBot.
 
