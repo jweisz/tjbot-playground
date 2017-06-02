@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Name</key>
+	<string>Building TJBot</string>
+	<key>Pages</key>
+	<array>
+		<string>Intro.cutscenepage</string>
+		<string>Page1_Obtain.playgroundpage</string>
+		<string>Page2_Assemble.playgroundpage</string>
+		<string>Page3_Software.playgroundpage</string>
+	</array>
+</dict>
+</plist>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="389px" height="357px" viewBox="0 0 389 357" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>Icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="-26.1234663%" x2="50%" y2="78.758525%" id="linearGradient-1">
+            <stop stop-color="#B70F0F" offset="0%"></stop>
+            <stop stop-color="#E44355" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="angle-right" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M194.537975,49.1715721 C175.88071,19.6248185 142.936939,0 105.409547,0 C47.2354079,0 0.0759502192,47.1594577 0.0759502192,105.333597 C-4.21272237,208.104363 174.471419,356.513705 194.537975,356.513712 C212.686297,356.513719 357.068112,235.053459 384.506212,135.868214 C387.428802,126.203518 389,115.952044 389,105.333597 C389,47.1594577 341.840542,0 283.666403,0 C246.139002,0 213.195224,19.6248279 194.537962,49.1715935 Z" id="Icon" fill="url(#linearGradient-1)"></path>
+    </g>
+</svg>

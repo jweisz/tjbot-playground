@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Name</key>
+	<string>TJBot Explores the World</string>
+	<key>Pages</key>
+	<array>
+		<string>Intro.cutscenepage</string>
+		<string>Page1_Naming.playgroundpage</string>
+		<string>Page2_TJBot_Tells_His_Story.playgroundpage</string>
+		<string>Page3_TJBot_Listens_and_Acts.playgroundpage</string>
+		<string>Page4_Eyes_of_the_World.playgroundpage</string>
+		<string>Page5_Rock_Paper_TJBot_Part_1.playgroundpage</string>
+		<string>Page6_Rock_Paper_TJBot_Part2.playgroundpage</string>
+		<string>Page7_Conversing_with_TJBot.playgroundpage</string>
+		<string>Page8_Adventures.playgroundpage</string>
+	</array>
+</dict>
+</plist>

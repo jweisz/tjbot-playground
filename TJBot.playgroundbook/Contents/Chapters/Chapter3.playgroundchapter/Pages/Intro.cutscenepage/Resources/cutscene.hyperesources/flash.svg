@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="139px" height="141px" viewBox="0 0 139 141" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 7</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="angle-right" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-7" fill="#FFFFFF">
+            <path d="M18,20 L69.8815899,69.4562487 L116,23.3107472 L77.4842583,74.804188 L116,120.94721 L69.8815899,79.4587382 L18,120.94721 L63.5991202,74.804188 L18,20 Z" id="Rectangle"></path>
+            <path d="M21.3095625,19.8723281 L73.1911523,69.3285768 L119.309562,23.1830752 L80.7938208,74.6765161 L119.309562,120.819538 L73.1911523,79.3310663 L21.3095625,120.819538 L66.9086827,74.6765161 L21.3095625,19.8723281 Z" id="Rectangle" transform="translate(70.309562, 70.345933) rotate(44.000000) translate(-70.309562, -70.345933) "></path>
+        </g>
+    </g>
+</svg>
