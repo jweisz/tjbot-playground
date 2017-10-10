@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Hints</key>
+	<array>
+		<dict>
+			<key>Content</key>
+			<string>Before completing this exercise, you will need to define a conversation in the Watson Conversation tool. Please refer to the Prerequisite section for instructions on how to do this.</string>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<string>Use the `tj.converse(workspaceId:message:)` method to send a message to the Watson Conversation service and receive the response.</string>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<string>The `ConversationResponse` returned from Watson contains a `text` property containing the textual response. This property should be spoken by TJBot using `tj.speak(_:)`.</string>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<string>Not seeing the results you expect? Be sure to check the `error` property of the `ConversationResponse`.</string>
+		</dict>
+		<dict>
+			<key>FileReference</key>
+			<string>Solution.txt</string>
+			<key>SpoilerButtonTitle</key>
+			<string>Show Solution</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -343,14 +343,13 @@ extension VisionResponse: JSONRepresentable {
 }
 
 extension VisionResponse {
-    func fetchImageData(_ completion: @escaping ((Data?) -> Void)) {        
+    func fetchImageData(_ completion: @escaping ((Data?) -> Void)) {
         guard let imageURL = self.imageURL else { return }
         guard let url = URL(string: imageURL) else { return }
         let sessionConfig = URLSessionConfiguration.default
         sessionConfig.requestCachePolicy = .reloadIgnoringLocalCacheData
         sessionConfig.urlCache = nil
         let session = URLSession(configuration: sessionConfig)
-        
         let dataTask = session.dataTask(with: url) { (data, response, error) in
             completion(data)
         }
@@ -687,6 +686,8 @@ extension Sequence where Iterator.Element == LanguageIdentification {
 public struct LanguageIdentificationResponse: PlaygroundSerializable {
     public var languages: [LanguageIdentification] = []
     public var error: TJBotError? = nil
+    
+    public init() {}
     
     public init(response: AnyObject) {
         guard let dict = response as? Dictionary<String, AnyObject> else { return }

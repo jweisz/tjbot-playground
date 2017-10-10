@@ -2,14 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Name</key>
-	<string>Rock, Paper, TJBot! (Part II)</string>
-	<key>LiveViewMode</key>
-	<string>VisibleByDefault</string>
-	<key>LiveViewEdgeToEdge</key>
-	<true/>
-	<key>PlaygroundLoggingMode</key>
-	<string>Normal</string>
 	<key>CodeCopySetup</key>
 	<dict>
 		<key>NavigateCommandButtonTitle</key>
@@ -19,5 +11,17 @@
 		<key>ReadyToCopyInstructions</key>
 		<string>Copy My Code from the Previous Page</string>
 	</dict>
+	<key>Description</key>
+	<string>Description</string>
+	<key>Name</key>
+	<string>Rock, Paper, TJBot! (Part II)</string>
+	<key>LiveViewMode</key>
+	<string>VisibleByDefault</string>
+	<key>LiveViewEdgeToEdge</key>
+	<true/>
+	<key>PlaygroundLoggingMode</key>
+	<string>Normal</string>
+	<key>Version</key>
+	<string>1.0</string>
 </dict>
 </plist>

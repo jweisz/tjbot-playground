@@ -52,12 +52,6 @@ protocol Waves {
 
 // MARK: - Internal TJBot Abilities
 
-/// This protocol is only applied to PhysicalTJBotViewController
-/// so PhysicalTJBot can tell it to start connecting.
-internal protocol RemotelyConnects {
-    func connectToTJBot(scanDuration: TimeInterval) -> Bool
-}
-
 /// This protocol is only applied to VirtualTJBotViewController
 /// so we can send it commands to control the bee.
 internal protocol Buzzes {
@@ -87,6 +81,7 @@ extension CarriesTJBotState {
 enum TJBotCommand {
     case sleep(TimeInterval)
     case listen
+    case stopListening
     case shine(String)
     case pulse(String, TimeInterval)
     case raiseArm
@@ -102,6 +97,8 @@ extension TJBotCommand: CustomStringConvertible {
             return "sleep"
         case .listen:
             return "listen"
+        case .stopListening:
+            return "stopListening"
         case .shine(_):
             return "shine"
         case .pulse(_, _):
@@ -163,7 +160,6 @@ extension TJBotCommand {
 // MARK: - TJBotRequest
 
 enum TJBotRequest {
-    case connectToTJBot
     case hardware
     case configuration
     case capabilities
@@ -179,8 +175,6 @@ enum TJBotRequest {
 extension TJBotRequest: CustomStringConvertible {
     public var description: String {
         switch self {
-        case .connectToTJBot:
-            return "connectToTJBot"
         case .hardware:
             return "hardware"
         case .configuration:

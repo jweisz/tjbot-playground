@@ -26,14 +26,12 @@ class DashboardDisplayView: UIView {
             imageView.heightAnchor.constraint(equalToConstant: 214).isActive = true
             imageView.contentMode = .scaleAspectFit
             imageView.image = image
-            TJLog("DashboardDisplayView set image")
             self.addSubview(imageView)
             
             self.imageView = imageView
         }
         
         if let message = message {
-            
             self.messageLabel?.removeFromSuperview()
             self.messageLabel = nil
             
@@ -41,7 +39,7 @@ class DashboardDisplayView: UIView {
             label.numberOfLines = 0
             label.translatesAutoresizingMaskIntoConstraints = false
             label.text = message
-            label.font = label.font.withSize(13)
+            label.font = label.font.withSize(18)
             label.textColor = UIColor(hexString: "#464646")
             addSubview(label)
             label.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true

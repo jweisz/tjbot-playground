@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Hints</key>
+	<array>
+		<dict>
+			<key>Content</key>
+			<string>The `tj.listen(_:)` method uses a callback function to pass back the text heard by TJBot.</string>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<string>An easy way to use `tj.listen(_:)` is as follows:
+
+`tj.listen { (response) in
+...
+}`</string>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<string>You can make the interaction with TJBot more natural by checking if the `response` includes a phrase such as &quot;turn the light&quot; or &quot;change the light&quot;.</string>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<string>Use `response.components(separatedBy:&quot; &quot;)` to split the response string into a list of words to check for the presence of a color.</string>
+		</dict>
+		<dict>
+			<key>FileReference</key>
+			<string>Solution.txt</string>
+			<key>SpoilerButtonTitle</key>
+			<string>Show Solution</string>
+		</dict>
+	</array>
+</dict>
+</plist>

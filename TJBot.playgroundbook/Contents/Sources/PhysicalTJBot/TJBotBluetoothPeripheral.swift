@@ -5,11 +5,12 @@
 
 import Foundation
 import CoreBluetooth
+import PlaygroundBluetooth
 
 // MARK: TJBotBluetoothPeripheral
 
 class TJBotBluetoothPeripheral: NSObject, CBPeripheralDelegate {
-    private let cbCentralManager: CBCentralManager
+    private let cbCentralManager: PlaygroundBluetoothCentralManager
     private let cbPeripheral: CBPeripheral
     
     // callbacks when certain events happen
@@ -47,9 +48,9 @@ class TJBotBluetoothPeripheral: NSObject, CBPeripheralDelegate {
     var configuration: TJBotConfiguration?
     var capabilities: Set<TJBotCapability>?
     
-    init(central: CBCentralManager, peripheral: CBPeripheral) {
+    init(centralManager: PlaygroundBluetoothCentralManager, peripheral: CBPeripheral) {
         assert(peripheral.state == .connected)
-        self.cbCentralManager = central
+        self.cbCentralManager = centralManager
         self.cbPeripheral = peripheral
         
         super.init()
@@ -62,7 +63,7 @@ class TJBotBluetoothPeripheral: NSObject, CBPeripheralDelegate {
     /// Disconnect from the peripheral
     func disconnect() {
         TJLog("TJBotBluetoothPeripheral disconnect(): disconnecting from bluetooth")
-        self.cbCentralManager.cancelPeripheralConnection(self.cbPeripheral)
+//        self.cbCentralManager.cancelPeripheralConnection(self.cbPeripheral)
     }
     
     /// Sends a command to TJBot. Does not wait for a response to be received before returning.
@@ -70,7 +71,7 @@ class TJBotBluetoothPeripheral: NSObject, CBPeripheralDelegate {
         guard let commandCharacteristic = self.commandCharacteristic else { return }
         guard let payload = command.serialize() else { return }
         
-        TJLog("TJBotBluetoothPeripheral send command \(command)")
+        TJLog("TJBotBluetoothPeripheral send(): sending command \(command)")
         self.send(payload: payload, to: commandCharacteristic)
     }
     
@@ -87,7 +88,7 @@ class TJBotBluetoothPeripheral: NSObject, CBPeripheralDelegate {
         
         // get the response
         guard let responseObject = self.responseBuffer?.responseObject else {
-            TJLog("error: responseBuffer was nil when we didn't expect it to be!")
+            TJLog("TJBotBluetoothPeripheral send(): error: responseBuffer was nil when we didn't expect it to be!")
             return nil
         }
         
@@ -190,7 +191,7 @@ class TJBotBluetoothPeripheral: NSObject, CBPeripheralDelegate {
     }
     
     private func parseConfiguration(from configuration: [String : AnyObject]) -> TJBotConfiguration {
-        TJLog("TJBotBluetoothPeripheral parseConfiguration: attempt to create configuration from")
+        TJLog("TJBotBluetoothPeripheral parseConfiguration(): attempt to create configuration from:")
         TJLog(" > \(configuration)")
         let config = TJBotConfiguration(response: configuration as AnyObject)
         return config
@@ -358,16 +359,15 @@ class TJBotBluetoothPeripheral: NSObject, CBPeripheralDelegate {
         TJLog("Received \(value) on characteristic \(characteristic.uuid)")
         
         guard var buffer = self.readBuffers[characteristic.uuid] else {
-            if let str = String(data: value, encoding: .utf8) {
-                TJLog("TJBotBluetoothPeripheral peripheral > \(str)")
-            }
-            TJLog("TJBotBluetoothPeripheral call received 1")
+//            if let str = String(data: value, encoding: .utf8) {
+//                TJLog("TJBotBluetoothPeripheral peripheral > \(str)")
+//            }
+//            TJLog("TJBotBluetoothPeripheral call received 1")
             // if there's no read buffer, it means this is for a characteristic that doesn't need
             // large writes, so just read the entire thing and process it
             self.received(packet: value, for: characteristic)
             return
         }
-        
         
         // append data & write it back to self.readBuffers
         buffer.append(value)
@@ -375,13 +375,11 @@ class TJBotBluetoothPeripheral: NSObject, CBPeripheralDelegate {
         
         // process packets at the null-byte boundaries
         while let nullIndex = buffer.index(of: 0x0) {
-            
             let packetData = buffer.subdata(in: 0..<nullIndex)
-            if let str = String(data: packetData, encoding: .utf8) {
-                TJLog("TJBotBluetoothPeripheral peripheral >>> \(str)")
-
-            }
-            TJLog("TJBotBluetoothPeripheral call received 2")
+//            if let str = String(data: packetData, encoding: .utf8) {
+//                TJLog("TJBotBluetoothPeripheral peripheral >>> \(str)")
+//            }
+//            TJLog("TJBotBluetoothPeripheral call received 2")
             self.received(packet: packetData, for: characteristic)
             buffer.removeSubrange(0..<nullIndex.advanced(by: 1))
             self.readBuffers[characteristic.uuid] = buffer

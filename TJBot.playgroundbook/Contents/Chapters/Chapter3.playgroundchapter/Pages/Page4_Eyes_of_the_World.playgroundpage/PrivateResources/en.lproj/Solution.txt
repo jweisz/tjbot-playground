@@ -1,0 +1,22 @@
+```
+tj.listen { (response) in
+    if prompts.contains(response.lowercased()) {
+        tj.speak("Let me look around")
+        let visionResponse = tj.see()
+        if let error = visionResponse.error {
+            tj.speak("Uh oh, I can't see anything!")
+        } else {
+            var msg = "I'm looking at"
+            for object in visionResponse.objects {
+                guard let last = visionResponse.objects.last else { break }
+                if object == last {
+                    msg.append(" and a \(object.name).")
+                } else {
+                    msg.append(" a \(object.name),")
+                }
+            }
+            tj.speak(msg)
+        }
+    }
+}
+```

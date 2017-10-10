@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Hints</key>
+	<array>
+		<dict>
+			<key>Content</key>
+			<string>In this exercise, you will need to use `tj.listen(_:)` to have TJBot listen for the move you want to make.</string>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<string>If you cannot determine which move was spoken, TJBot should say that he didn&apos;t understand.</string>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<string>Call the `endGame()` method once TJBot has announced the winner of the game to end the game.</string>
+		</dict>
+		<dict>
+			<key>FileReference</key>
+			<string>Solution.txt</string>
+			<key>SpoilerButtonTitle</key>
+			<string>Show Solution</string>
+		</dict>
+	</array>
+</dict>
+</plist>

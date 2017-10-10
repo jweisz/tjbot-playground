@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Hints</key>
+	<array>
+		<dict>
+			<key>Content</key>
+			<string>To begin, define a function that accepts a `ToneResponse` and returns an `Emotion`.
+
+`func getPrimaryEmotion(from toneResponse: ToneResponse) -&gt; Emotion`</string>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<string>Be sure to check the `error` property of the `ToneResponse`. If Watson returns an error, your function should return `.unknown`.</string>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<string>One way to figure out which emotion is dominant is to put all of the emotion values in an array and sort it. To keep track of which `Emotion` corresponds to which value, put them in a Dictionary like so:
+
+```
+let dict: [Emotion: Double] = [
+    .anger: toneResponse.emotion.anger, 
+    .disgust: toneResponse.emotion.disgust,
+    ...
+]
+```</string>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<string>```
+let dict: [Emotion: Double] = [
+    .anger: toneResponse.emotion.anger,
+    .disgust: toneResponse.emotion.disgust,
+    .fear: toneResponse.emotion.fear,
+    .joy: toneResponse.emotion.joy,
+    .sadness: toneResponse.emotion.sadness
+]
+    
+let sortedEmotions = Array(dict).sorted {$0.1 &gt; $1.1}
+```</string>
+			<key>SpoilerButtonTitle</key>
+			<string>Show how to sort the dictionary of emotions</string>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<string>Not seeing the results you expect? Make sure you have entered your Watson service credentials correctly!</string>
+		</dict>
+		<dict>
+			<key>FileReference</key>
+			<string>Solution.txt</string>
+			<key>SpoilerButtonTitle</key>
+			<string>Show Solution</string>
+		</dict>
+	</array>
+</dict>
+</plist>

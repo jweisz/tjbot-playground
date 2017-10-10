@@ -19,7 +19,7 @@ import UIKit
  1. Open the [Watson Language Translator](https://console.ng.bluemix.net/catalog/services/language-translator) page and tap the "Create" button on the bottom right to create an instance of the service. Sign up for a free Bluemix account if you do not have one already.
  
  2. Tap "Service Credentials" in the left-hand sidebar, then tap "View Credentials" under the Actions menu.
-
+ 
  ![Language Translator Credentials](language-translator-credentials.png)
  
  3. Fill in your service credentials below. Note that these credentials are saved for future exercises and if you ever need to change your credentials, you will need to re-run this page.
@@ -37,7 +37,7 @@ Watson.languageTranslator.password =
  - - -
  
  * Callout(💡 Tip):
- `tinker.identifyLanguage(text:)` will return an array of `LanguageIdentification` objects. This array has a property called `highestConfidenceLanguage` that will help you easily find the language with the highest translation confidence.
+ `tinker.identifyLanguage(text:)` will return an array of type `[LanguageIdentification]`. We have extended this type to add a property called `highestConfidenceLanguage` that will help you easily find the language with the highest translation confidence.
  */
 let tinker = VirtualTJBot()
 let rebus = RebusTheBee()

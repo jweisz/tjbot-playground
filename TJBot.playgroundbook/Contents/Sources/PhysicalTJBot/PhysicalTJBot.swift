@@ -12,25 +12,6 @@ import CoreBluetooth
 // MARK: PhysicalTJBot
 
 public class PhysicalTJBot: CarriesTJBotState {
-    public static var tjbotName: String {
-        get {
-            if case let .string(name)? = PlaygroundKeyValueStore.current["tjbotName"] {
-                TJLog("PhysicalTJBot.tjbotName: tjbot name is \"\(name)\"")
-                return name
-            }
-            TJLog("PhysicalTJBot.tjbotName: tjbot name is not set")
-            return ""
-        }
-        set {
-            TJLog("PhysicalTJBot.tjbotName: setting tjbot name to \(newValue)")
-            PlaygroundKeyValueStore.current["tjbotName"] = .string(newValue)
-            
-            // playground bug -- need to sleep for a second so the KVS write takes effect,
-            // otherwise, doing a KVS read too quickly will result in the value not being read
-            Thread.sleep(forTimeInterval: 1.0)
-        }
-    }
-    
     public var hardware: Set<TJBotHardware> {
         TJLog("PhysicalTJBot hardware requested")
         var hardware: Set<TJBotHardware> = []
@@ -90,20 +71,6 @@ public class PhysicalTJBot: CarriesTJBotState {
         let page = PlaygroundPage.current
         let proxy = page.liveView as? PlaygroundRemoteLiveViewProxy
         proxy?.delegate = self
-        
-        // tell the PhysicalTJBotViewController to connect to TJBot
-        TJLog("PhysicalTJBot init(): sending request to connectToTJBot")
-        guard let response = self.send(request: .connectToTJBot) else {
-            TJLog("PhysicalTJBot init(): didn't get a response from send()")
-            PlaygroundPage.current.finishExecution()
-        }
-        
-        // if we failed to connect, end execution of the playground page
-        if case let .boolean(val) = response, val == false {
-            TJLog("PhysicalTJBot init(): was not able to connect to TJBot")
-            PlaygroundPage.current.finishExecution()
-        }
-        TJLog("PhysicalTJBot init(): connected to tjbot!")
     }
     
     fileprivate func send(command: TJBotCommand) {

@@ -39,6 +39,38 @@ class DashboardCellModel {
         self.message = message
     }
     
+    init(visionResponse: VisionResponse) {
+        self.type = .see
+        self.visionResponse = visionResponse
+    }
+    
+    init(toneResponse: ToneResponse) {
+        self.type = .tone
+        self.toneResponse = toneResponse
+    }
+    
+    init(translationResponse: LanguageTranslationResponse) {
+        self.type = .translate
+        self.translationResponse = translationResponse
+    }
+    
+    init(identificationResponse: LanguageIdentificationResponse) {
+        self.type = .identify
+        self.identificationResponse = identificationResponse
+    }
+    
+    init(languages: [LanguageIdentification]) {
+        self.type = .identify
+        var response = LanguageIdentificationResponse()
+        response.languages = languages
+        self.identificationResponse = response
+    }
+    
+    init(type: DashboardCellType, color: UIColor) {
+        self.type = type
+        self.ledColor = color
+    }
+    
     var iconPath: String {
         switch type {
         case .speak:
