@@ -26,7 +26,7 @@ PlaygroundPage.current.assessmentStatus = .pass(message: nil)
  * Callout(💡 Tip):
  If TJBot doesn't understand your move, he should announce that he didn't understand and re-prompt you for your move.
  
- 4. When TJBot hears your move, he should stop pulsing. He should then wave his arm and announce your move. For example, TJBot may say, "Okay, I got your move. You chose scissors."
+ 4. Wave his arm and announce your move when he hears it. For example, TJBot may say, "Okay, I got your move. You chose scissors."
  5. Lower his arm and announce his move. For example, TJBot may say, "I chose rock."
  6. Determine the winner. If you win, TJBot should congratulate you! If TJBot wins, he should perform a victory dance. In the case of a tie, TJBot should ask to play again.
  7. When the game has concluded, call the `endGame()` method to end the game. This method will tell TJBot to stop listening to the microphone and end the execution of the Playground.

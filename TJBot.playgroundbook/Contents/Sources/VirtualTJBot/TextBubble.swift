@@ -100,7 +100,7 @@ final class TextBubble {
 
         // Launch the text after the bee rest on the hand
         bubble.runAction(SCNAction.wait(duration: 2),
-                         completionHandler: {_ in self.presentText(maxPages: numberOfBubbles, finalLines: finalLines)})
+                         completionHandler: { () -> Void in self.presentText(maxPages: numberOfBubbles, finalLines: finalLines)})
 
     }
 
@@ -117,7 +117,7 @@ final class TextBubble {
     func textLine(_ string: String) -> SCNText {
         // Convert a string in a 3D Geometry
         let string = SCNText(string: string, extrusionDepth: 1)
-        string.font = UIFont.systemFont(ofSize: 18.0, weight: UIFontWeightLight)
+        string.font = UIFont.systemFont(ofSize: 18.0, weight: UIFont.Weight.light)
         string.firstMaterial!.multiply.contents = UIColor.black
         return string
     }
@@ -149,7 +149,7 @@ final class TextBubble {
             // Add next word to the SCNText
             stringBuffer += word
             currentLine = textLine(stringBuffer)
-            currentLine.font = UIFont.systemFont(ofSize: 18.0, weight: UIFontWeightLight)
+            currentLine.font = UIFont.systemFont(ofSize: 18.0, weight: UIFont.Weight.light)
 
             // Check if text fits in the bubble
             if currentLine.boundingBox.max.x < maxLength {
@@ -177,7 +177,7 @@ final class TextBubble {
         // Wait 2 seconds for bee rest near the bot, then show the TextBubble
         var waitingTime: Double = 0
         bubble.runAction(SCNAction.wait(duration: waitingTime),
-                         completionHandler: {_ in self.hideText(false)
+                         completionHandler: { () -> Void in self.hideText(false)
         })
 
         waitingTime += 0.5
@@ -186,7 +186,7 @@ final class TextBubble {
         for index in 0..<maxPages {
             let sIndex = index * maxBubbleLines
             bubble.runAction(SCNAction.wait(duration: waitingTime),
-                             completionHandler: {_ in self.showTextLines(fromIndex: sIndex, to: sIndex + self.maxBubbleLines - 1)
+                             completionHandler: { () -> Void in self.showTextLines(fromIndex: sIndex, to: sIndex + self.maxBubbleLines - 1)
             })
 
             waitingTime += 5
@@ -196,14 +196,14 @@ final class TextBubble {
         if finalLines > 0 {
             let inicio = maxPages * self.maxBubbleLines
             bubble.runAction(SCNAction.wait(duration: waitingTime),
-                             completionHandler: {_ in self.showTextLines(fromIndex: inicio, to: inicio + finalLines - 1)
+                             completionHandler: { () -> Void in self.showTextLines(fromIndex: inicio, to: inicio + finalLines - 1)
             })
             waitingTime += 5
         }
 
         // Wait and hide the bubble
         bubble.runAction(SCNAction.wait(duration: waitingTime),
-                         completionHandler: {_ in self.processNextInQueue()})
+                         completionHandler: { () -> Void in self.processNextInQueue()})
     }
 
     func showTextLines(fromIndex firstIndex: Int, to lastIndex: Int) {

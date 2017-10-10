@@ -78,7 +78,7 @@ class DashboardCell: UITableViewCell {
         containerView.addSubview(errorView)
         errorView.createAssets(message: nil)
         let constraint = errorView.heightAnchor.constraint(equalToConstant: 24.0)
-        constraint.priority = UILayoutPriorityDefaultLow
+//        constraint.priority = 
         constraint.isActive = true
         
         //add items to stackView

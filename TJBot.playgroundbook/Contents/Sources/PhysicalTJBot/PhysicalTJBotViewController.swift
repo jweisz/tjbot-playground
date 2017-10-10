@@ -5,35 +5,37 @@
 
 import UIKit
 import PlaygroundSupport
-
 import CoreBluetooth
+import PlaygroundBluetooth
 
 // MARK: PhysicalTJBotViewController
 
 public class PhysicalTJBotViewController: TJBotViewController, CarriesTJBotState {
-    fileprivate var dataSource: DashboardDataSource = DashboardDataSource()
-    fileprivate var tableView: UITableView?
+    private var tableView: UITableView?
+    private var dataSource: DashboardDataSource = DashboardDataSource()
+    private var header: DashboardHeader? = nil
     
-    fileprivate var tjScanner: TJBotScanner?
-    fileprivate var tjPeripheral: TJBotBluetoothPeripheral?
-    
-    var header: DashboardHeader?
+    private var connectionView: PlaygroundBluetoothConnectionView? = nil
+    private var tjbotManager: TJBotManager = TJBotManager()
+    private var tjbot: TJBotBluetoothPeripheral? {
+        return self.tjbotManager.tjbot
+    }
     
     public var hardware: Set<TJBotHardware> {
         TJLog("PhysicalTJBot hardware requested")
-        guard let tj = self.tjPeripheral else { return [] }
+        guard let tj = self.tjbot else { return [] }
         guard let hardware = tj.hardware else { return [] }
         return hardware
     }
     
     public var configuration: TJBotConfiguration {
         TJLog("PhysicalTJBot configuration requested")
-        guard let tj = self.tjPeripheral else {
-            TJLog("PhysicalTJBotViewController configuration: self.tjPeripheral is nil, returning default configuration")
+        guard let tj = self.tjbot else {
+            TJLog("PhysicalTJBotViewController configuration: self.tjbot is nil, returning default configuration")
             return TJBotConfiguration()
         }
         guard let configuration = tj.configuration else {
-            TJLog("PhysicalTJBotViewController configuration: self.tjPeripheral.configuration is nil, returning default configuration")
+            TJLog("PhysicalTJBotViewController configuration: self.tjbot.configuration is nil, returning default configuration")
             return TJBotConfiguration()
         }
         TJLog("PhysicalTJBotViewController configuration: we have a real configuration, returning it")
@@ -43,7 +45,7 @@ public class PhysicalTJBotViewController: TJBotViewController, CarriesTJBotState
     
     public var capabilities: Set<TJBotCapability> {
         TJLog("PhysicalTJBot capabilities requested")
-        guard let tj = self.tjPeripheral else { return [] }
+        guard let tj = self.tjbot else { return [] }
         guard let capabilities = tj.capabilities else { return [] }
         return capabilities
     }
@@ -63,102 +65,127 @@ public class PhysicalTJBotViewController: TJBotViewController, CarriesTJBotState
     
     override public func liveViewMessageConnectionOpened() {
         TJLog("liveViewMessageConnectionOpened()")
+        if let header = self.header {
+            header.connectionStatus = .running
+        }
+        
+        // clear the dashboard
+        self.clearDashboard()
     }
     
     override public func liveViewMessageConnectionClosed() {
         TJLog("liveViewMessageConnectionClosed()")
-        
-        // stop the bluetooth scan just in case it's still running
-        self.tjScanner?.stopScanning()
-        self.tjScanner = nil
-        
-        // disconnect from tjbot if we are connected
-        guard let tj = self.tjPeripheral else { return }
-        tj.disconnect()
-        if let header = header {
-            header.updateConnectionStatus(status: .notConnected)
+        if let header = self.header {
+            header.connectionStatus = .sleeping
         }
+        
+        // stop listening if we are listening, because we only want to listen
+        // while the playground is active
+        guard let tj = self.tjbot else { return }
+        tj.send(command: .stopListening)
     }
 }
 
-// MARK: - UIViewController
+// MARK: - UITableView
 
 extension PhysicalTJBotViewController: UITableViewDataSource, UITableViewDelegate {
     override public func viewDidLoad() {
         super.viewDidLoad()
-        view.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleRightMargin, UIViewAutoresizing.flexibleLeftMargin]
-        createTableView()
-        createBotHeader()
+        
+        TJLog("creating table view")
+        self.createTableView()
+        TJLog("creating dashboard header")
+        self.createDashboardHeader()
+        TJLog("creating bluetooth connection view")
+        self.createBluetoothConnectionView()
+        
         NotificationCenter.default.addObserver(self, selector: #selector(PhysicalTJBotViewController.keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(PhysicalTJBotViewController.keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
     }
     
-    func keyboardWillShow(notification : Notification) {
-        if let keyboardRect = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue  {
-            if let tableview = tableView {
-                tableview.contentInset = UIEdgeInsetsMake(265.0, 0, keyboardRect.height, 0)
-            }
-        }
+    @objc func keyboardWillShow(notification : Notification) {
+        guard let keyboardRect = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue else { return }
+        guard let tableView = self.tableView else { return }
+        tableView.contentInset = UIEdgeInsetsMake(212.0, 0, keyboardRect.height, 0)
     }
     
-    func keyboardWillHide(notification: Notification) {
-        if let tableview = tableView {
-            tableview.contentInset = UIEdgeInsetsMake(265.0, 0, 0, 0)
-        }
+    @objc func keyboardWillHide(notification: Notification) {
+        guard let tableView = tableView else { return }
+        tableView.contentInset = UIEdgeInsetsMake(212.0, 0, 0, 0)
     }
     
     func createTableView() {
-        view.backgroundColor = UIColor(hexString: "#EAEAEA")
-        let tableview = UITableView(frame: .zero)
-        tableview.rowHeight = UITableViewAutomaticDimension
-        tableview.estimatedRowHeight = 82.0
-        view.translatesAutoresizingMaskIntoConstraints = false
-        tableview.translatesAutoresizingMaskIntoConstraints = false
-        tableview.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        tableview.separatorStyle = .none
-        tableview.register(DashboardCell.self, forCellReuseIdentifier: "DashboardCell")
-        tableview.register(ListenDashboardCell.self, forCellReuseIdentifier: "ListenDashboardCell")
-        tableview.register(PulseDashboardCell.self, forCellReuseIdentifier: "PulseDashboardCell")
-        tableview.register(SeeDashboardCell.self, forCellReuseIdentifier: "SeeDashboardCell")
-        tableview.register(ReadDashboardCell.self, forCellReuseIdentifier: "ReadDashboardCell")
-        tableview.register(ToneDashboardCell.self, forCellReuseIdentifier: "ToneDashboardCell")
-        tableview.register(TranslateDashboardCell.self, forCellReuseIdentifier: "TranslateDashboardCell")
-        tableview.register(IdentifyDashboardCell.self, forCellReuseIdentifier: "IdentifyDashboardCell")
-        tableview.register(WaveDashboardCell.self, forCellReuseIdentifier: "WaveDashboardCell")
-        tableview.register(ShineDashboardCell.self, forCellReuseIdentifier: "ShineDashboardCell")
-        tableview.register(RaiseArmDashboardCell.self, forCellReuseIdentifier: "RaiseArmDashboardCell")
-        tableview.register(LowerArmDashboardCell.self, forCellReuseIdentifier: "LowerArmDashboardCell")
-        tableview.register(SpeakDashboardCell.self, forCellReuseIdentifier: "SpeakDashboardCell")
-        tableview.dataSource = self
-        tableview.delegate = self
-        view.addSubview(tableview)
-        tableview.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0.0).isActive = true
-        tableview.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0.0).isActive = true
-        tableview.topAnchor.constraint(equalTo: view.topAnchor, constant: 0.0).isActive = true
-        tableview.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0.0).isActive = true
-        view.updateConstraintsIfNeeded()
-        tableview.contentInset = UIEdgeInsetsMake(265.0, 0, 0, 0)
-        tableview.contentOffset = CGPoint(x: 0, y: -265)
-        tableView = tableview
+        let tableView = UITableView(frame: .zero)
+        tableView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        tableView.contentInset = UIEdgeInsetsMake(212.0, 0, 0, 0)
+        tableView.contentOffset = CGPoint(x: 0, y: -212)
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.estimatedRowHeight = 82.0
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.separatorStyle = .none
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         
+        tableView.register(DashboardCell.self, forCellReuseIdentifier: "DashboardCell")
+        tableView.register(ListenDashboardCell.self, forCellReuseIdentifier: "ListenDashboardCell")
+        tableView.register(PulseDashboardCell.self, forCellReuseIdentifier: "PulseDashboardCell")
+        tableView.register(SeeDashboardCell.self, forCellReuseIdentifier: "SeeDashboardCell")
+        tableView.register(ReadDashboardCell.self, forCellReuseIdentifier: "ReadDashboardCell")
+        tableView.register(ToneDashboardCell.self, forCellReuseIdentifier: "ToneDashboardCell")
+        tableView.register(TranslateDashboardCell.self, forCellReuseIdentifier: "TranslateDashboardCell")
+        tableView.register(IdentifyDashboardCell.self, forCellReuseIdentifier: "IdentifyDashboardCell")
+        tableView.register(WaveDashboardCell.self, forCellReuseIdentifier: "WaveDashboardCell")
+        tableView.register(ShineDashboardCell.self, forCellReuseIdentifier: "ShineDashboardCell")
+        tableView.register(RaiseArmDashboardCell.self, forCellReuseIdentifier: "RaiseArmDashboardCell")
+        tableView.register(LowerArmDashboardCell.self, forCellReuseIdentifier: "LowerArmDashboardCell")
+        tableView.register(SpeakDashboardCell.self, forCellReuseIdentifier: "SpeakDashboardCell")
+        
+        self.view.backgroundColor = UIColor(hexString: "#EAEAEA")
+        self.view.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleRightMargin, UIViewAutoresizing.flexibleLeftMargin]
+        self.view.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(tableView)
+        
+        // must add the tableView as a subview of view before setting layout constraints
+        tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0.0).isActive = true
+        tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0.0).isActive = true
+        tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0.0).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0.0).isActive = true
+        self.view.updateConstraintsIfNeeded()
+        
+        self.tableView = tableView
     }
     
-    func createBotHeader() {
-        self.header = DashboardHeader(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 256))
-        guard let header = self.header else {
-            return
-        }
+    func createDashboardHeader() {
+        let header = DashboardHeader()
         header.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(header)
-        header.createAssets()
+        
+        self.view.addSubview(header)
+        
         header.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0.0).isActive = true
         header.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0.0).isActive = true
         header.topAnchor.constraint(equalTo: view.topAnchor, constant: 0.0).isActive = true
-        header.heightAnchor.constraint(equalToConstant: 256.0).isActive = true
+        header.heightAnchor.constraint(equalToConstant: 200.0).isActive = true
+
+        self.header = header
+    }
+    
+    func createBluetoothConnectionView() {
+        let connectionView = PlaygroundBluetoothConnectionView(centralManager: self.tjbotManager.centralManager)
+        connectionView.delegate = self
+        connectionView.dataSource = self
+        
+        self.view.addSubview(connectionView)
+        connectionView.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -12.0).isActive = true
+        connectionView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 12.0).isActive = true
+        
+        // connect to the last connected tjbot
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000)) {
+            let _ = self.tjbotManager.centralManager.connectToLastConnectedPeripheral()
+        }
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataSource.count
+        return self.dataSource.count
     }
     
     public func numberOfSections(in tableView: UITableView) -> Int {
@@ -166,86 +193,87 @@ extension PhysicalTJBotViewController: UITableViewDataSource, UITableViewDelegat
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: dataSource.cellType(at: indexPath), for: indexPath as IndexPath) as? DashboardCell else { return UITableViewCell() }
         
-        if let model = dataSource.item(at: indexPath) {
+        if let model = self.dataSource.item(at: indexPath) {
             cell.setupCell(model: model)
         }
+        
         return cell
     }
     
     func insertDashboardStatus(model: DashboardCellModel) {
-        dataSource.add(model: model)
-        if let tableview = tableView {
-            tableview.beginUpdates()
-            let indexes = [IndexPath(row: DashboardDataSource.defaultRowAdd, section: 0)]
-            tableview.insertRows(at: indexes, with: UITableViewRowAnimation.top)
-            tableview.endUpdates()
-        }        
+        guard let tableView = self.tableView else { return }
+        self.dataSource.add(model: model)
+        tableView.beginUpdates()
+        let indexes = [IndexPath(row: DashboardDataSource.defaultRowAdd, section: 0)]
+        tableView.insertRows(at: indexes, with: UITableViewRowAnimation.top)
+        tableView.endUpdates()
     }
     
     func clearDashboard() {
+        guard let tableView = self.tableView else { return }
         let totalCount = dataSource.count
         let sectionIndexes = dataSource.indexPaths
-        dataSource.clear()
+        self.dataSource.clear()
         if totalCount > 0 {
-            if let tableview = tableView {
-                tableview.beginUpdates()
-                tableview.deleteRows(at: sectionIndexes, with: .fade)
-                tableview.endUpdates()
-            }
+            tableView.beginUpdates()
+            tableView.deleteRows(at: sectionIndexes, with: .fade)
+            tableView.endUpdates()
         }
-        
     }
 }
 
-// MARK: - RemotelyConnects
+// MARK: - PlaygroundBluetoothConnectionViewDelegate
 
-extension PhysicalTJBotViewController: RemotelyConnects {
-    func connectToTJBot(scanDuration: TimeInterval) -> Bool {
+extension PhysicalTJBotViewController: PlaygroundBluetoothConnectionViewDelegate {
+    public func connectionView(_ connectionView: PlaygroundBluetoothConnectionView, shouldDisplayDiscovered peripheral: CBPeripheral, withAdvertisementData advertisementData: [String : Any]?, rssi: Double) -> Bool {
+        return true
+    }
+    
+    public func connectionView(_ connectionView: PlaygroundBluetoothConnectionView, shouldConnectTo peripheral: CBPeripheral, withAdvertisementData advertisementData: [String : Any]?) -> Bool {
+        return true
+    }
+    
+    public func connectionView(_ connectionView: PlaygroundBluetoothConnectionView, willDisconnectFrom peripheral: CBPeripheral) {
+        TJLog("Disconnecting from tjbot: \(peripheral)")
         if let header = self.header {
-            header.updateConnectionStatus(status: .searching)
+            header.connectionStatus = .sleeping
         }
-        clearDashboard()
-        // figure out which tjbot we're supposed to connect to
-        let tjbotName = PhysicalTJBot.tjbotName
-        let scanner = TJBotScanner(scanDuration: scanDuration)
-        self.tjScanner = scanner
-        
-        // empty tjbotName means connect to the nearest TJBot
-        if tjbotName == "" {
-            TJLog("PhysicalTJBotViewController connectToTJBot: scanning for nearest tjbot")
-            header?.updateConnected(name: "       ")
-            self.tjPeripheral = scanner.nearest()
-        } else {
-            TJLog("PhysicalTJBotViewController connectToTJBot: scanning for tjbot named: \(tjbotName)")
-            header?.updateConnected(name: tjbotName)
-            self.tjPeripheral = scanner.tjbot(named: tjbotName)
+    }
+    
+    public func connectionView(_ connectionView: PlaygroundBluetoothConnectionView, titleFor state: PlaygroundBluetoothConnectionView.State) -> String {
+        // Provide a localized title for the given state of the connection view.
+        switch state {
+        case .noConnection:
+            return NSLocalizedString("Connect TJBot", comment:"")
+        case .connecting:
+            return NSLocalizedString("Connecting TJBot", comment:"")
+        case .searchingForPeripherals:
+            return NSLocalizedString("Searching for TJBot", comment:"")
+        case .selectingPeripherals:
+            return NSLocalizedString("Select TJBot", comment:"")
+        case .connectedPeripheralFirmwareOutOfDate:
+            return NSLocalizedString("Connect to a Different TJBot", comment:"")
         }
-        
-        if let _ = self.tjPeripheral {
-            TJLog("PhysicalTJBotViewController connectToTJBot: found the tjbot")
-        } else {
-            TJLog("PhysicalTJBotViewController connectToTJBot: did not find the tjbot")
-        }
-        
-        if let header = self.header {
-            if self.tjPeripheral != nil {
-               header.updateConnectionStatus(status: .connected)
-            } else {
-                header.updateConnectionStatus(status: .notConnected)
-            }
-            guard let peripheral = tjPeripheral, let config = peripheral.configuration else {
-                header.updateConnected(name: "       ")
-                return self.tjPeripheral != nil
-            }
-            header.updateConnected(name: config.name)
+    }
+    
+    public func connectionView(_ connectionView: PlaygroundBluetoothConnectionView, firmwareUpdateInstructionsFor peripheral: CBPeripheral) -> String {
+        // Provide firmware update instructions.
+        return "No firmware updates are required for TJBot."
+    }
+}
 
-        }
-       
-        // return true if we connected, false otherwise
-        return self.tjPeripheral != nil
+// MARK: - PlaygroundBluetoothConnectionViewDataSource
+
+extension PhysicalTJBotViewController: PlaygroundBluetoothConnectionViewDataSource {
+    public func connectionView(_ connectionView: PlaygroundBluetoothConnectionView, itemForPeripheral peripheral: CBPeripheral, withAdvertisementData advertisementData: [String : Any]?) -> PlaygroundBluetoothConnectionView.Item {
+        // Provide display information associated with a peripheral item.
+        let name = peripheral.name ?? NSLocalizedString("Unknown Device", comment:"")
+        let icon = UIImage(named: "tjbot_head") ?? UIImage()
+        let issueIcon = icon
+        let item = PlaygroundBluetoothConnectionView.Item(name: name, icon: icon, issueIcon: issueIcon, firmwareStatus: nil, batteryLevel: nil)
+        return item
     }
 }
 
@@ -253,7 +281,7 @@ extension PhysicalTJBotViewController: RemotelyConnects {
 
 extension PhysicalTJBotViewController: Sleeps {
     public func sleep(duration: TimeInterval) {
-        guard let tj = self.tjPeripheral else { return }
+        guard let tj = self.tjbot else { return }
         tj.send(command: .sleep(duration))
     }
 }
@@ -262,25 +290,21 @@ extension PhysicalTJBotViewController: Sleeps {
 
 extension PhysicalTJBotViewController: AnalyzesTone {
     public func analyzeTone(text: String) -> ToneResponse {
-        guard let tj = self.tjPeripheral else {
-            return ToneResponse(error: .tjbotNotConnected)
+        guard let tj = self.tjbot else {
+            let toneResponse = ToneResponse(error: .tjbotNotConnected)
+            self.insertDashboardStatus(model: DashboardCellModel(toneResponse: toneResponse))
+            return toneResponse
         }
         
-        let cellModel = DashboardCellModel(type: .tone)
-        self.insertDashboardStatus(model: cellModel)
-        
         guard let response = tj.send(request: .analyzeTone(text)) else {
-            return ToneResponse(error: .unableToDeserializeTJBotResponse)
+            let toneResponse = ToneResponse(error: .tjbotNotConnected)
+            self.insertDashboardStatus(model: DashboardCellModel(toneResponse: toneResponse))
+            return toneResponse
         }
         
         let toneResponse = ToneResponse(response: response)
-        dataSource.items[0].toneResponse = toneResponse
-        
-        if let tableView = self.tableView {
-            tableView.reloadData()
-        }
-        
-        return ToneResponse(response: response)
+        self.insertDashboardStatus(model: DashboardCellModel(toneResponse: toneResponse))
+        return toneResponse
     }
 }
 
@@ -288,7 +312,9 @@ extension PhysicalTJBotViewController: AnalyzesTone {
 
 extension PhysicalTJBotViewController: Converses {
     public func converse(workspaceId: String, message: String) -> ConversationResponse {
-        guard let tj = self.tjPeripheral else {
+        // we don't add a dashboard cell for Conversation responses because there is a high likelihood
+        // that they will also be spoken, so we want to avoid putting them in the dashboard twice
+        guard let tj = self.tjbot else {
             return ConversationResponse(error: .tjbotNotConnected)
         }
         
@@ -304,15 +330,13 @@ extension PhysicalTJBotViewController: Converses {
 
 extension PhysicalTJBotViewController: Listens {
     public func listen(_ completion: @escaping ((String) -> Void)) {
-        guard let tj = self.tjPeripheral else { return }
+        guard let tj = self.tjbot else { return }
         TJLog("PhysicalTJBotViewController listen()")
         
         // set the callback & start listening
         tj.listenCallback = {
             response in
-            var cellModel = DashboardCellModel(type: .listen)
-            cellModel.message = response
-            self.insertDashboardStatus(model: cellModel)
+            self.insertDashboardStatus(model: DashboardCellModel(type: .listen, message: response))
             completion(response)
         }
         
@@ -324,31 +348,30 @@ extension PhysicalTJBotViewController: Listens {
 
 extension PhysicalTJBotViewController: Sees {
     public func see() -> VisionResponse {
-        guard let tj = self.tjPeripheral else {
-            return VisionResponse(error: .tjbotNotConnected)
+        guard let tj = self.tjbot else {
+            let visionResponse = VisionResponse(error: .tjbotNotConnected)
+            self.insertDashboardStatus(model: DashboardCellModel(visionResponse: visionResponse))
+            return visionResponse
         }
         
-        let cellModel = DashboardCellModel(type: .see)
-        self.insertDashboardStatus(model: cellModel)
-        
         guard let response = tj.send(request: .see) else {
-            return VisionResponse(error: .unableToDeserializeTJBotResponse)
+            let visionResponse = VisionResponse(error: .unableToDeserializeTJBotResponse)
+            self.insertDashboardStatus(model: DashboardCellModel(visionResponse: visionResponse))
+            return visionResponse
         }
         
         let visionResponse = VisionResponse(response: response)
-        cellModel.visionResponse = visionResponse
-        
-        if let tableView = self.tableView {
-            tableView.reloadData()
-        }
+        let model = DashboardCellModel(visionResponse: visionResponse)
+        self.insertDashboardStatus(model: model)
         
         visionResponse.fetchImageData { (data) in
-            
             if let imageData = data {
                 if let image = UIImage(data: imageData) {
-                    cellModel.image = image
+                    model.image = image
+                    
+                    // reload the table to show the image after it has loaded
                     DispatchQueue.main.async {
-                        if let tableView = self.tableView{
+                        if let tableView = self.tableView {
                             tableView.reloadData()
                         }
                     }
@@ -356,34 +379,34 @@ extension PhysicalTJBotViewController: Sees {
             }
         }
         
-        return VisionResponse(response: response)
+        return visionResponse
     }
     
     public func read() -> VisionResponse {
-        guard let tj = self.tjPeripheral else {
-            return VisionResponse(error: .tjbotNotConnected)
+        guard let tj = self.tjbot else {
+            let visionResponse = VisionResponse(error: .tjbotNotConnected)
+            self.insertDashboardStatus(model: DashboardCellModel(visionResponse: visionResponse))
+            return visionResponse
         }
         
-        let cellModel = DashboardCellModel(type: .read)
-        self.insertDashboardStatus(model: cellModel)
-        
         guard let response = tj.send(request: .read) else {
-            return VisionResponse(error: .unableToDeserializeTJBotResponse)
+            let visionResponse = VisionResponse(error: .unableToDeserializeTJBotResponse)
+            self.insertDashboardStatus(model: DashboardCellModel(visionResponse: visionResponse))
+            return visionResponse
         }
         
         let visionResponse = VisionResponse(response: response)
-        dataSource.items[0].visionResponse = visionResponse
-        
-        if let tableView = self.tableView {
-            tableView.reloadData()
-        }
+        let model = DashboardCellModel(visionResponse: visionResponse)
+        self.insertDashboardStatus(model: model)
         
         visionResponse.fetchImageData { (data) in
             if let imageData = data {
                 if let image = UIImage(data: imageData) {
-                    self.dataSource.items[0].image = image
+                    model.image = image
+                    
+                    // reload the table to show the image after it has loaded
                     DispatchQueue.main.async {
-                        if let tableView = self.tableView{
+                        if let tableView = self.tableView {
                             tableView.reloadData()
                         }
                     }
@@ -391,7 +414,7 @@ extension PhysicalTJBotViewController: Sees {
             }
         }
         
-        return VisionResponse(response: response)
+        return visionResponse
     }
 }
 
@@ -399,19 +422,15 @@ extension PhysicalTJBotViewController: Sees {
 
 extension PhysicalTJBotViewController: Shines {
     public func shine(color: UIColor) {
-        guard let tj = self.tjPeripheral else { return }
+        guard let tj = self.tjbot else { return }
+        self.insertDashboardStatus(model: DashboardCellModel(type: .shine, color: color))
         tj.send(command: .shine(color.toHexString()))
-        var model = DashboardCellModel(type: .shine)
-        model.ledColor = color
-        insertDashboardStatus(model: model)
     }
     
     public func pulse(color: UIColor, duration: TimeInterval) {
-        guard let tj = self.tjPeripheral else { return }
+        guard let tj = self.tjbot else { return }
+        self.insertDashboardStatus(model: DashboardCellModel(type: .pulse, color: color))
         tj.send(command: .pulse(color.toHexString(), duration))
-        var model = DashboardCellModel(type: .shine)
-        model.ledColor = color
-        insertDashboardStatus(model: model)
     }
 }
 
@@ -419,9 +438,9 @@ extension PhysicalTJBotViewController: Shines {
 
 extension PhysicalTJBotViewController: Speaks {
     public func speak(_ message: String) {
-        guard let tj = self.tjPeripheral else { return }
+        guard let tj = self.tjbot else { return }
+        self.insertDashboardStatus(model: DashboardCellModel(type: .speak, message: message))
         let _ = tj.send(request: .speak(message))
-        insertDashboardStatus(model: DashboardCellModel(type: .speak, message: message))
     }
 }
 
@@ -429,41 +448,37 @@ extension PhysicalTJBotViewController: Speaks {
 
 extension PhysicalTJBotViewController: Translates {
     public func translate(text: String, sourceLanguage: TJTranslationLanguage, targetLanguage: TJTranslationLanguage) -> String? {
-        guard let tj = self.tjPeripheral else { return nil }
-        guard let response = tj.send(request: .translate(text, sourceLanguage.rawValue, targetLanguage.rawValue)) else {
+        guard let tj = self.tjbot else {
+            let translationResponse = LanguageTranslationResponse(error: .tjbotNotConnected)
+            self.insertDashboardStatus(model: DashboardCellModel(translationResponse: translationResponse))
             return nil
         }
         
-        let cellModel = DashboardCellModel(type: .translate)
-        self.insertDashboardStatus(model: cellModel)
-        
-        let translationResponse = LanguageTranslationResponse(response: response)
-        dataSource.items[0].translationResponse = translationResponse
-        
-        if let tableView = self.tableView {
-            tableView.reloadData()
+        guard let response = tj.send(request: .translate(text, sourceLanguage.rawValue, targetLanguage.rawValue)) else {
+            let translationResponse = LanguageTranslationResponse(error: .unableToDeserializeTJBotResponse)
+            self.insertDashboardStatus(model: DashboardCellModel(translationResponse: translationResponse))
+            return nil
         }
         
+        let translationResponse = LanguageTranslationResponse(response: response)
+        self.insertDashboardStatus(model: DashboardCellModel(translationResponse: translationResponse))
         return translationResponse.translation
     }
     
     public func identifyLanguage(text: String) -> [LanguageIdentification] {
         let defaultIdentification = [LanguageIdentification(language: .unknown, confidence: 1.0)]
-        guard let tj = self.tjPeripheral else { return defaultIdentification }
+        guard let tj = self.tjbot else {
+            self.insertDashboardStatus(model: DashboardCellModel(languages: defaultIdentification))
+            return defaultIdentification
+            
+        }
         guard let response = tj.send(request: .identifyLanguage(text)) else {
+            self.insertDashboardStatus(model: DashboardCellModel(languages: defaultIdentification))
             return defaultIdentification
         }
         
-        let cellModel = DashboardCellModel(type: .identify)
-        self.insertDashboardStatus(model: cellModel)
-        
         let identificationResponse = LanguageIdentificationResponse(response: response)
-        dataSource.items[0].identificationResponse = identificationResponse
-        
-        if let tableView = self.tableView {
-            tableView.reloadData()
-        }
-
+        self.insertDashboardStatus(model: DashboardCellModel(identificationResponse: identificationResponse))
         return identificationResponse.languages
     }
 }
@@ -472,30 +487,20 @@ extension PhysicalTJBotViewController: Translates {
 
 extension PhysicalTJBotViewController: Waves {
     public func raiseArm() {
-        guard let tj = self.tjPeripheral else { return }
+        guard let tj = self.tjbot else { return }
+        self.insertDashboardStatus(model: DashboardCellModel(type: .raiseArm))
         tj.send(command: .raiseArm)
-        insertDashboardStatus(model: DashboardCellModel(type: .raiseArm))
     }
     
     public func lowerArm() {
-        guard let tj = self.tjPeripheral else { return }
+        guard let tj = self.tjbot else { return }
+        self.insertDashboardStatus(model: DashboardCellModel(type: .lowerArm))
         tj.send(command: .lowerArm)
-        insertDashboardStatus(model: DashboardCellModel(type: .lowerArm))
     }
     
     public func wave() {
-        guard let tj = self.tjPeripheral else { return }
+        guard let tj = self.tjbot else { return }
+        self.insertDashboardStatus(model: DashboardCellModel(type: .wave))
         tj.send(command: .wave)
-        insertDashboardStatus(model: DashboardCellModel(type: .wave))
-    }
-}
-
-// MARK: - Stayin' Alive
-
-extension PhysicalTJBotViewController {
-    func stayAlive() {
-        TJLog("TJBot staying alive")
-        RunLoop.main.run()
-        TJLog("TJBot terminated?")
     }
 }

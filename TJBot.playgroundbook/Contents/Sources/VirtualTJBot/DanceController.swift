@@ -56,9 +56,11 @@ final class DanceController {
 
     public func startDance() {
         resetAll()
-
-        musicNode.runAction(SCNAction.wait(duration: totalDuration),
-                            completionHandler: {_ in self.delegate?.removeDanceMusic()})
+        
+        let wait = SCNAction.wait(duration: totalDuration)
+        musicNode.runAction(wait, completionHandler: { () -> Void in
+            self.delegate?.removeDanceMusic()
+        })
 
         startArmSequence()
         startMouthSequence()
@@ -94,11 +96,11 @@ final class DanceController {
     // Body commands
     func startBodySequence() {
         bodyNode.runAction(SCNAction.wait(duration: 2.4),
-                           completionHandler: {_ in self.bodyNode.runAction(self.bodyBounce(true), forKey: "bounce")})
+                           completionHandler: { () -> Void in self.bodyNode.runAction(self.bodyBounce(true), forKey: "bounce")})
         bodyNode.runAction(SCNAction.wait(duration: 48.2),
-                           completionHandler: {_ in self.bodyNode.removeAction(forKey:"bounce")})
+                           completionHandler: { () -> Void in self.bodyNode.removeAction(forKey:"bounce")})
         bodyNode.runAction(SCNAction.wait(duration: 48.5),
-                           completionHandler: {_ in self.bodyNode.runAction(self.bodyBounce(false))})
+                           completionHandler: { () -> Void in self.bodyNode.runAction(self.bodyBounce(false))})
     }
 
     func bodyBounce(_ activate: Bool) -> SCNAction {
@@ -158,7 +160,7 @@ final class DanceController {
 
     func changeLightColor(_ color: UIColor, startAt: Double, duration: Double) -> Double {
         lightNode.runAction(SCNAction.wait(duration: startAt),
-                            completionHandler: {_ in self.delegate?.danceLightColor(color)})
+                            completionHandler: { () -> Void in self.delegate?.danceLightColor(color)})
         return duration
     }
 

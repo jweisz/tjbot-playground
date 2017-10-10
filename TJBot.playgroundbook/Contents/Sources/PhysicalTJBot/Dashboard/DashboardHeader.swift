@@ -5,88 +5,54 @@
 
 import UIKit
 
-class DashboardHeader: UIView {
-    enum ConnectionStatus: CustomStringConvertible {
-        case searching
-        case notConnected
-        case connected
+class DashboardHeader: UIVisualEffectView {
+    enum ConnectionStatus {
+        case sleeping
+        case running
         
-        public var description: String {
+        public var image: UIImage {
             switch self {
-            case .searching:
-                return "Searching"
-            case .notConnected:
-                return "Not Connected"
-            case .connected:
-                return "Connected"
+            case .sleeping:
+                return UIImage(named: "tjbot-sleeping") ?? UIImage()
+            case .running:
+                return UIImage(named: "tjbot-running") ?? UIImage()
             }
         }
     }
     
-    //tag is 51
-    var botNameLabel: UILabel?
-    //tag is 52
-    //var connectedLabel: UILabel?
-    var botImage: UIImageView?
-    var infoArea: DashboardHeaderInfoArea?
-    var headerView: UIView?
+    fileprivate var imageView: UIImageView?
+    fileprivate var status: ConnectionStatus = .sleeping
     
-    func createAssets() {
-        createBlurBG()
-        createBotImage()
-        createInfoArea()
-    }
-    
-    func createBlurBG() {
-        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
-        visualEffectView.frame = bounds
-        addSubview(visualEffectView)
-        visualEffectView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1.0).isActive = true
-        visualEffectView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 1.0).isActive = true
-        //visualEffectView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0.0).isActive = true
-        //     visualEffectView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0.0).isActive = true
-    }
-    
-    
-    func createBotImage() {
-        if let bot = UIImage(named: "tjbot_header_icon.png") {
-            let imageView = UIImageView(image: bot)
-            imageView.translatesAutoresizingMaskIntoConstraints = false
-            imageView.frame = CGRect(x: ((self.frame.size.width-141)/2), y: 24.0, width: 141, height: 153)
-            addSubview(imageView)
-            imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-            imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 24.0).isActive = true
-            imageView.widthAnchor.constraint(equalToConstant: 141).isActive = true
-            imageView.heightAnchor.constraint(equalToConstant: 153).isActive = true
-            botImage = imageView
+    public var connectionStatus: ConnectionStatus {
+        get {
+            return self.status
         }
         
-    }
-    
-    func createInfoArea() {
-        let info = DashboardHeaderInfoArea(frame: .zero)
-        info.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(info)
-        info.createInfoArea()
-       
-        if let bot = botImage {
-            info.topAnchor.constraint(equalTo: bot.bottomAnchor, constant: 10.0).isActive = true
-            info.leadingAnchor.constraint(equalTo: bot.leadingAnchor, constant: 2.0).isActive = true
-            info.trailingAnchor.constraint(equalTo: bot.trailingAnchor, constant: 2.0).isActive = true
-            info.heightAnchor.constraint(equalToConstant: 44.0).isActive = true
-        }
-        infoArea = info
-    }
-    
-    func updateConnected(name botName: String) {
-        if let label = infoArea?.botNameLabel {
-            label.text = botName
+        set {
+            self.status = newValue
+            guard let imageView = self.imageView else { return }
+            imageView.image = newValue.image
         }
     }
     
-    func updateConnectionStatus(status: ConnectionStatus) {
-        if let label = self.infoArea?.connectedLabel {
-            label.text = status.description
-        }
+    init() {
+        let blurStyle = UIBlurEffect(style: .light)
+        super.init(effect: blurStyle)
+        
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 300, height: 200))
+        imageView.contentMode = .scaleAspectFit
+        self.contentView.addSubview(imageView)
+        
+        imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 8).isActive = true
+        imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: 300).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 200).isActive = true
+
+        self.imageView = imageView
+        self.connectionStatus = .sleeping
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }

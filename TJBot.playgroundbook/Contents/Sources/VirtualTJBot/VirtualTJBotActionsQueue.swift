@@ -154,7 +154,7 @@ class VirtualTJBotActionsQueue {
         let currentNode = seq.node
         let currentAction = seq.action
         if seq.waitingMode == .wait {
-            let _ = currentNode.runAction(currentAction, completionHandler: {_ in let _ = self.executeAction()})
+            let _ = currentNode.runAction(currentAction, completionHandler: { () -> Void in let _ = self.executeAction()})
         } else {
             currentNode.runAction(currentAction)
            let _ = executeAction()

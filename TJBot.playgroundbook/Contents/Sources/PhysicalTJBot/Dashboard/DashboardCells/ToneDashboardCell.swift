@@ -10,7 +10,6 @@ class ToneDashboardCell: DashboardTextCell {
         var messageString: String? = nil
         
         if let toneResponse = model.toneResponse {
-            
             if let error = toneResponse.error {
                 self.errorView.createAssets(message: error.description)
                 self.errorView.isHidden = false

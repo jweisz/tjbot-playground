@@ -1,0 +1,10 @@
+```
+for message in instructions {
+    let candidates = tinker.identifyLanguage(text: message)
+    let language = candidates.highestConfidenceLanguage
+    let translatedMessage = tinker.translate(text: message, sourceLanguage: language, targetLanguage: .english)
+    if let translated = translatedMessage {
+        rebus.speak(translated)
+    }
+}
+```

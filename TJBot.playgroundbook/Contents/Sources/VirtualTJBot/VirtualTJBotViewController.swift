@@ -464,11 +464,11 @@ extension VirtualTJBotViewController {
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
         view.addGestureRecognizer(panGesture)
 
-        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector (handlePinchGesture(_:)))
+        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePinchGesture(_:)))
         view.addGestureRecognizer(pinchGesture)
     }
-
-    func handlePanGesture(_ panGesture: UIPanGestureRecognizer) {
+    
+    @objc func handlePanGesture(_ panGesture: UIPanGestureRecognizer) {
         // get translation
         let translation = panGesture.translation(in: view)
         let point: CGPoint = CGPoint(x: 0, y: 0)
@@ -486,8 +486,8 @@ extension VirtualTJBotViewController {
             break
         }
     }
-
-    func handlePinchGesture(_ pinchGesture: UIPinchGestureRecognizer) {
+    
+    @objc func handlePinchGesture(_ pinchGesture: UIPinchGestureRecognizer) {
         switch pinchGesture.state {
         case .began:
             lastScale = 1.0

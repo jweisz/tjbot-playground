@@ -7,7 +7,7 @@
 	<key>Pages</key>
 	<array>
 		<string>Intro.cutscenepage</string>
-		<string>Page1_Naming.playgroundpage</string>
+		<string>Page1_Connect_to_TJBot.playgroundpage</string>
 		<string>Page2_TJBot_Tells_His_Story.playgroundpage</string>
 		<string>Page3_TJBot_Listens_and_Acts.playgroundpage</string>
 		<string>Page4_Eyes_of_the_World.playgroundpage</string>

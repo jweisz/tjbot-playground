@@ -1,0 +1,34 @@
+```
+tj.speak(intro)
+tj.raiseArm()
+tj.speak("Three")
+tj.wave()
+tj.speak("Two")
+tj.wave()
+tj.speak("One")
+tj.lowerArm()
+tj.speak("\(tjbotMove.rawValue). You chose \(myMove.rawValue).")
+
+let result = gameResult(tjbot: tjbotMove, beats: myMove)
+
+switch result {
+case .win:
+    tj.speak("Yippie! I won!")
+    tj.shine(color: UIColor.yellow)
+    tj.wave()
+    tj.sleep(duration: 0.5)
+    tj.shine(color: UIColor.green)
+    tj.wave()
+    tj.sleep(duration: 0.5)
+    tj.shine(color: UIColor.red)
+    tj.wave()
+    tj.sleep(duration: 0.5)
+    tj.shine(color: UIColor.blue)
+    tj.wave()
+    tj.wave()
+case .tie:
+    tj.speak("Look at that, a tie. Let's play again!")
+case .lose:
+    tj.speak("Good job, you are the winner!")
+}
+```

@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Description</key>
+	<string>Description</string>
 	<key>Name</key>
 	<string>Secret Dance of the TJBot</string>
 	<key>LiveViewMode</key>
@@ -10,5 +12,7 @@
 	<true/>
 	<key>PlaygroundLoggingMode</key>
 	<string>Normal</string>
+	<key>Version</key>
+	<string>1.0</string>
 </dict>
 </plist>

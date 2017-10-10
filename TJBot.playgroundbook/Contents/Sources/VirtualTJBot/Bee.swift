@@ -50,7 +50,7 @@ class Bee {
         let newPos = randomPoint().position
         let moveTo = SCNAction.move(to: newPos, duration: 3)
         TJLog("Bee calling runAction()")
-        bee.runAction(moveTo, completionHandler: { _ in
+        bee.runAction(moveTo, completionHandler: { () -> Void in
             TJLog("Bee completionHandler calling moveToRandom()")
             self.moveToRandom()
             TJLog("Bee completionHandler called moveToRandom()")
@@ -64,8 +64,11 @@ class Bee {
         if !isFlying {
             moveWings()
         }
+        
         let moveTo = SCNAction.move(to: destination, duration: 1.5)
-        bee.runAction(moveTo, completionHandler: {_ in self.stopWings()})
+        bee.runAction(moveTo, completionHandler: { () -> Void in
+            self.stopWings()
+        })
     }
 
     fileprivate func randomPoint() -> SCNNode {

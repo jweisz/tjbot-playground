@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Hints</key>
+	<array>
+		<dict>
+			<key>Content</key>
+			<string>Use `tj.speak(_:)`, `tj.raiseArm()`, `tj.wave()`, and `tj.lowerArm()` to introduce the game, count down to playing the move, and announce the winner.</string>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<string>The `gameResult(tjbot:beats:)` method can be used to determine the winner of the game. It returns a `GameResult` of a `.win`, a `.tie`, or a `.loss`. Note that a `.win` signifies that TJBot won.</string>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<string>If you wish to make TJBot speak the `Move`, use the `.rawValue` property. For example, `tjbotMove.rawValue` returns the string corresponding to TJBot&apos;s move: &quot;rock&quot;, &quot;paper&quot;, or &quot;scissors&quot;.</string>
+		</dict>
+		<dict>
+			<key>FileReference</key>
+			<string>Solution.txt</string>
+			<key>SpoilerButtonTitle</key>
+			<string>Show Solution</string>
+		</dict>
+	</array>
+</dict>
+</plist>

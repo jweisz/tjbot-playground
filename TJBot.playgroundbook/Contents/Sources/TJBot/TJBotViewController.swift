@@ -86,11 +86,6 @@ public class TJBotViewController: UIViewController, PlaygroundLiveViewMessageHan
                 taskAssessor?.save(answer: Answer(key:.command, command: "wave"))
             }
         // TJBotRequest
-        case "connectToTJBot":
-            if let tj = self as? RemotelyConnects {
-                let result = tj.connectToTJBot(scanDuration: 15)
-                self.sendResponse(result)
-            }
         case "hardware":
             if let tj = self as? CarriesTJBotState {
                 let hardware: [String] = Array(tj.hardware.map { $0.rawValue })

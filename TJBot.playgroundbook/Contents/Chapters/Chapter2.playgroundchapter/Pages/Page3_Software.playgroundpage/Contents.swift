@@ -12,13 +12,13 @@
  
  # Install TJBot software
  
- 1. Open a Terminal on your Raspberry Pi. If you have hooked up a monitor and keyboard to your Pi, you can click the terminal icon (![Terminal](terminal.png)) in the menu bar. If you have SSH set up, you can SSH into your Pi.
+ 1. Open a Terminal on your Raspberry Pi.
+ 
+ If you have hooked up a monitor and keyboard to your Pi, you can click the terminal icon (![Terminal](terminal.png)) in the menu bar. If you have SSH set up, you can SSH into your Pi.
  
  2. Type the following command into the Terminal and press return.
  
- ```
- curl -sL http://ibm.biz/tjbot-bootstrap | bash -
- ```
+ `curl -sL http://ibm.biz/tjbot-bootstrap | sudo sh -`
  
  The script will ask you a series of questions about how to configure your Raspberry Pi. If you don't understand any of the questions, it's okay to use the default.
  
@@ -27,10 +27,7 @@
  
  After the bootstrap script runs, you will find a "tjbot" folder on your Desktop (or in the location you specified). If you would like to run tests to make sure your TJBot's hardware is working, you can run the `runTests.sh` script in the bootstrap folder.
  
- ```
- cd ~/Desktop/tjbot/bootstrap
- ./runTests.sh
- ```
+ `cd ~/Desktop/tjbot/bootstrap && ./runTests.sh`
  
  - - -
  
@@ -40,9 +37,7 @@
  
  1. Install the TJBot daemon by running the following command in the Terminal.
  
- ```
- curl -sL http://ibm.biz/tjbot-daemon | bash -
- ```
+ `curl -sL http://ibm.biz/tjbot-daemon | sh -`
  
  * Callout(😈 What's a "daemon"?):
  A daemon is a computer program that runs as a background process, rather than being under the direct control of the user. The TJBot daemon runs in the background on your TJBot listening for commands from your iPad.
@@ -59,7 +54,7 @@
  
  - - -
  
- [Next chapter: Exploring the World](@next)
+ [Next chapter: TJBot Explores the World](@next)
  */
 //#-code-completion(everything, hide)
 

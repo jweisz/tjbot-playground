@@ -14,13 +14,15 @@
 	<string>1.0</string>
 	<key>DeploymentTarget</key>
 	<string>ios10.0</string>
+	<key>DevelopmentRegion</key>
+	<string>en</string>
 	<key>ImageReference</key>
 	<string>tjbot.png</string>
 	<key>Name</key>
 	<string>TJBot</string>
-	<key>Version</key>
-	<string>1.0</string>
 	<key>SwiftVersion</key>
-	<string>3.1</string>
+	<string>4.0</string>
+	<key>Version</key>
+	<string>3.0</string>
 </dict>
 </plist>

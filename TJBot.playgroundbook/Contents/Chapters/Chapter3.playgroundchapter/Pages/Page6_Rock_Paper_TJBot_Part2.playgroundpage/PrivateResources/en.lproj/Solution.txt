@@ -1,0 +1,46 @@
+```
+var myMove: Move? = nil
+tj.speak(intro)
+tj.raiseArm()
+tj.speak("What is your move?")
+tj.listen { (response) in
+    if response.contains(Move.rock.rawValue) {
+        myMove = .rock
+    } else if response.contains(Move.scissors.rawValue) {
+        myMove = .scissors
+    } else if response.contains(Move.paper.rawValue) {
+        myMove = .paper
+    }
+    
+    if let myMove = myMove {
+        tj.speak("Okay, I got your move. You chose \(myMove.rawValue).")
+        tj.lowerArm()
+        tj.speak("I chose \(tjbotMove.rawValue)")
+        let result = gameResult(tjbot: tjbotMove, beats: myMove)
+        switch result {
+        case .win:
+            tj.speak("Yippie! I won!")
+            tj.shine(color: UIColor.yellow)
+            tj.wave()
+            tj.sleep(duration: 0.5)
+            tj.shine(color: UIColor.green)
+            tj.wave()
+            tj.sleep(duration: 0.5)
+            tj.shine(color: UIColor.red)
+            tj.wave()
+            tj.sleep(duration: 0.5)
+            tj.shine(color: UIColor.blue)
+            tj.wave()
+            tj.wave()
+        case .tie:
+            tj.speak("Look at that, a tie. Let's play again!")
+        case .lose:
+            tj.speak("Good job, you are the winner!")
+        }
+        
+        endGame()
+    } else {
+        tj.speak("I didn't understand, could you please repeat?")
+    }
+}
+```
