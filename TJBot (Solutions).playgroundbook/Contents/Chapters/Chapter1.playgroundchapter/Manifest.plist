@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Name</key>
+	<string>Tinker and Rebus</string>
+	<key>Pages</key>
+	<array>
+		<string>Intro.cutscenepage</string>
+		<string>Page1_Shine.playgroundpage</string>
+		<string>Page2_MoveArm.playgroundpage</string>
+		<string>Page3_ToneAnalyzer.playgroundpage</string>
+		<string>Page4_Language.playgroundpage</string>
+		<string>Page5_Dance.playgroundpage</string>
+		<string>Page6_Farewell.playgroundpage</string>
+	</array>
+</dict>
+</plist>

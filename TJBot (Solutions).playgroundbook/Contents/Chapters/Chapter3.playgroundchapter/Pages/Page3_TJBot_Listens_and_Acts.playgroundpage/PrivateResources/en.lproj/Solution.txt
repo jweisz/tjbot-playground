@@ -1,0 +1,19 @@
+```
+var colors = [
+    "red": UIColor.red,
+    "green": UIColor.green,
+    "blue": UIColor.blue,
+    "yellow": UIColor.yellow
+]
+
+tj.listen { (response) in
+    if response.contains("turn the light") {
+        for word in response.components(separatedBy: " ") {
+            if let color = colors[word] {
+                tj.shine(color: color)
+                break
+            }
+        }
+    }
+}
+```

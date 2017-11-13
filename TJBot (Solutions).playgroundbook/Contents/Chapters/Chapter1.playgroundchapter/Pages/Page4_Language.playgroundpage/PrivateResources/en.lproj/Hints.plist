@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Hints</key>
+	<array>
+		<dict>
+			<key>Content</key>
+			<string>Begin by writing a loop that iterates over the hidden messages defined in `instructions`.
+
+`for message in instructions { ... }`</string>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<string>For each message, call `tinker.identifyLanguage(text:)` to identify in which language the message was written.</string>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<string>`tinker.identifyLanguage(text:)` returns a list of languages and Watson&apos;s confidence that the text was actually written in that language. Use the `highestConfidenceLanguage` property to quickly pick out the language with the highest confidence.</string>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<string>Once you know the langugage in which a message was written, call `tinker.translate(text:sourceLanguage:targetLanguage:)` to translate the message to `.english`.</string>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<string>Not seeing the results you expect? Make sure you have entered your Watson service credentials correctly!</string>
+		</dict>
+		<dict>
+			<key>FileReference</key>
+			<string>Solution.txt</string>
+			<key>SpoilerButtonTitle</key>
+			<string>Show Solution</string>
+		</dict>
+	</array>
+</dict>
+</plist>

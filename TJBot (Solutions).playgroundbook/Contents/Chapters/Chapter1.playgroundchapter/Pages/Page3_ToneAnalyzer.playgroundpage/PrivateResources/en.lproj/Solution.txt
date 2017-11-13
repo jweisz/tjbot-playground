@@ -1,0 +1,43 @@
+```
+func getPrimaryEmotion(from toneResponse: ToneResponse) -> Emotion {
+    if (toneResponse.error != nil) {
+        return .unknown
+    }
+    
+    let dict: [Emotion: Double] = [
+        .anger: toneResponse.emotion.anger,
+        .disgust: toneResponse.emotion.disgust,
+        .fear: toneResponse.emotion.fear,
+        .joy: toneResponse.emotion.joy,
+        .sadness: toneResponse.emotion.sadness
+    ]
+    
+    let sortedEmotions = Array(dict).sorted {$0.1 > $1.1}
+    guard let first = sortedEmotions.first else {
+        return .unknown
+    }
+    return first.key
+}
+
+for sentence in story {
+    let response = tinker.analyzeTone(text: sentence)
+    let emotion = getPrimaryEmotion(from: response)
+    
+    rebus.speak(sentence)
+    
+    switch emotion {
+        case .unknown:
+            break
+        case .anger:
+            tinker.shine(color: UIColor.red)
+        case .disgust:
+            tinker.shine(color: UIColor.green)
+        case .fear:
+            tinker.shine(color: UIColor.purple)
+        case .joy:
+            tinker.shine(color: UIColor.yellow)
+        case .sadness:
+            tinker.shine(color: UIColor.blue)
+    }
+}
+```

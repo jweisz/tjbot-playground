@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Hints</key>
+	<array>
+		<dict>
+			<key>Content</key>
+			<string>In your callback from `tj.listen(_:)`, be sure to check if the `response` corresponds to one of the prompts.</string>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<string>`VisionResponse` has a property named `objects` for all of the objects recognized by Watson. Each object has a `name` property describing what the object is, and a `confidence` property showing Watson&apos;s confidence that the object is present in the image.</string>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<string>In order to have TJBot speak about the objects he sees, create a string variable to hold the speech message. Next, iterate over the objects in `visionResponse.objects` and append the name to this variable. Finally, call `tj.speak(_:)` with your message to speak it aloud!</string>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<string>Not seeing the results you expect? Be sure to check the `error` property of the `VisionResponse`.</string>
+		</dict>
+		<dict>
+			<key>FileReference</key>
+			<string>Solution.txt</string>
+			<key>SpoilerButtonTitle</key>
+			<string>Show Solution</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -1,0 +1,9 @@
+```
+tinker.shine(color: UIColor.red)
+tinker.wave()
+tinker.wave()
+tinker.shine(color: UIColor.yellow)
+tinker.lowerArm()
+tinker.shine(color: UIColor.blue)
+tinker.raiseArm()
+```

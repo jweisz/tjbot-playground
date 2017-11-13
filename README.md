@@ -14,7 +14,7 @@ The TJBot playground book communicates with your TJBot using Bluetooth Low Energ
 
 The easiest way to get this playground on your iPad is to [download this repository](https://github.com/jweisz/tjbot-playground/archive/master.zip) to your Mac and then use AirDrop to copy the playground to your iPad. After downloading, right click the “TJBot.playgroundbook” file, and choose “Share > AirDrop.” A list will open up which should show your iPad. Click your iPad to transfer the Playground.
 
-> Note: Make sure AirDrop on your iPad is turned on first!
+> Note: Make sure AirDrop on your iPad is turned on!
 
 In addition to this playground book, you will need to install the [tjbot-daemon](https://github.com/jweisz/tjbot-daemon) project on your TJBot. Please refer to the [installation instructions](https://github.com/jweisz/tjbot-daemon/blob/master/README.md) to learn how to set up your TJBot with the daemon.
 
@@ -29,6 +29,12 @@ There are three chapters in the Playground.
 3. **TJBot Explores the World** showcases the full functionality of your physical TJBot by listening, speaking, and seeing! Learn TJBot’s life story, tell him to change the color of his LED, ask him what he is looking at, and play a game of Rock Paper Scissors!
 
 # Troubleshooting
+
+#### Help, I need solutions!
+
+If you are stuck on an example, we recommend referring to the hints before taking a peek at the solution guide.
+
+If you would like to use this playground to demo TJBot's capabilities without having to write any code, please AirDrop the "TJBot (Solutions).playgroundbook" file to your iPad.
 
 #### The playground doesn’t find my TJBot!
 
