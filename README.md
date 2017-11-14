@@ -8,7 +8,7 @@ Interact with [TJBot](http://ibm.biz/mytjbot) from your iPad in this Swift playg
 
 The TJBot playground book communicates with your TJBot using Bluetooth Low Energy (BLE), so you can program your TJBot while sitting next to him!
 
-> This playground book requires Swift Playgrounds 2.0. Please see [prior releases](https://github.com/jweisz/tjbot-playground/releases/) for a version that is compatible with earlier versions of Swift Playgrounds.
+> This playground book requires Swift Playgrounds 1.6. Please see [prior releases](https://github.com/jweisz/tjbot-playground/releases/) for a version that is compatible with earlier versions of Swift Playgrounds.
 
 # Installation
 
