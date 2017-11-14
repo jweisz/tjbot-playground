@@ -11,7 +11,7 @@
 	<key>ContentIdentifier</key>
 	<string>com.ibm.research.tjbot</string>
 	<key>ContentVersion</key>
-	<string>1.0</string>
+	<string>2.1</string>
 	<key>DeploymentTarget</key>
 	<string>ios10.0</string>
 	<key>DevelopmentRegion</key>
