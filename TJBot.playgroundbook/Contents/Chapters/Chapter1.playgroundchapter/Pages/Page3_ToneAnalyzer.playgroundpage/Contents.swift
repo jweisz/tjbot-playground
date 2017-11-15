@@ -34,7 +34,7 @@ Watson.toneAnalyzer.password =
  * Callout(💡 Tip):
  `tinker.analyzeTone()` returns a `ToneResponse`, which contains the different dimensions of tone analysis performed by Watson: emotional content, language style, and social tendencies. Use the `emotion` dimension to determine the degree to which a given sentence contains the emotions of joy, anger, disgust, fear, and sadness (1.0 is the highest level). It may help to create a helper function that examines a `ToneResponse` and returns the dominant `Emotion` (e.g. the one with the highest value).
  
- 
+ - - -
  * Callout(⚠️ Caution):
  Check the `error` property on the `ToneResponse` just in case Watson returned an error!
  
