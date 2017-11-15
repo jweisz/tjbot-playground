@@ -1,0 +1,50 @@
+{
+    "documents": [
+        {
+            "title": "TJBot",
+            "overviewSubtitle": "Learn to program a TJBot",
+            "detailSubtitle": "Bring TJBot to life using IBM Watson services.",
+            "description": "Join Tinker on his quest to become a real TJBot by teaching him how to speak, listen, and understand language using IBM Watson services. Once you've mastered the basics, build your own TJBot and program it with your iPad!\n\nThis playground does not require a TJBot to get started.",
+            "difficultyLevel": "beginner",
+            "contentIdentifier": "com.ibm.research.tjbot",
+            "contentVersion": "2.1",
+            "sha512": "4411bfca045913e532507ac8a48571935124322eed5d525891492a4eb1eac20ae1615c36576ade44c8adbde2e7a6f74097d9c513a8476d71379b810dc7f34468",
+            "url": "https://github.com/jweisz/tjbot-playground/releases/download/v2.1/TJBot.playgroundbook.zip",
+            "publishedDate": "2017-06-02T12:00:00+00:00",
+            "lastUpdatedDate": "2017-11-14T12:00:00+00:00",
+            "bannerImageURL": "../../Content/TJBot/en_lproj/banner_2x.png",
+            "thumbnailURL": "../../Content/TJBot/en_lproj/tjbot_2x.png",
+            "additionalInformation": [
+                {
+                    "name": "Publisher:",
+                    "value": "IBM Research"
+                },
+                {
+                    "name": "Version:",
+                    "value": "2.1"
+                },
+                {
+                    "type": "date",
+                    "name": "Released:",
+                    "value": "2017-06-02T12:00:00+00:00"
+                },
+                {
+                    "name": "Languages:",
+                    "value": "English."
+                }
+            ],
+            "previewImageURLs": [
+                "../../Content/TJBot/en_lproj/preview-1.png",
+                "../../Content/TJBot/en_lproj/preview-2.png",
+                "../../Content/TJBot/en_lproj/preview-3.png",
+                "../../Content/TJBot/en_lproj/preview-4.png",
+                "../../Content/TJBot/en_lproj/preview-5.png"
+            ]
+        }
+    ],
+    "publisherName": "IBM Research",
+    "title": "TJBot",
+    "formatVersion": "1.0",
+    "feedIdentifier": "com.ibm.research",
+    "contactURL": "mailto:tjbot@us.ibm.com"
+}
