@@ -8,7 +8,7 @@
             "difficultyLevel": "beginner",
             "contentIdentifier": "com.ibm.research.tjbot",
             "contentVersion": "2.2",
-            "sha512": "4411bfca045913e532507ac8a48571935124322eed5d525891492a4eb1eac20ae1615c36576ade44c8adbde2e7a6f74097d9c513a8476d71379b810dc7f34468",
+            "sha512": "03134d88e56cfbdef78d1b55952e287416c3a1798bf5e26b116a6844de2f2f76298d63af54ac3161f7f570f4f1835e3499cd5c99c76a1891454b3cdcafd411ca",
             "url": "https://github.com/jweisz/tjbot-playground/releases/download/v2.2/TJBot.playgroundbook.zip",
             "publishedDate": "2017-06-02T12:00:00+00:00",
             "lastUpdatedDate": "2018-06-06T12:00:00+00:00",
