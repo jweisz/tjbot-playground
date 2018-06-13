@@ -6,11 +6,11 @@
 	<array>
 		<dict>
 			<key>Content</key>
-			<string>Before completing this exercise, you will need to define a conversation in the Watson Conversation tool. Please refer to the Prerequisite section for instructions on how to do this.</string>
+			<string>Before completing this exercise, you will need to define a conversation in the Watson Assistant tool. Please refer to the Prerequisite section for instructions on how to do this.</string>
 		</dict>
 		<dict>
 			<key>Content</key>
-			<string>Use the `tj.converse(workspaceId:message:)` method to send a message to the Watson Conversation service and receive the response.</string>
+			<string>Use the `tj.converse(workspaceId:message:)` method to send a message to the Watson Assistant service and receive the response.</string>
 		</dict>
 		<dict>
 			<key>Content</key>
