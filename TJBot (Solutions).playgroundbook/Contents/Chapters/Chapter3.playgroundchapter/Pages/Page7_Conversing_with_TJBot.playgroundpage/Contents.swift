@@ -41,6 +41,14 @@ let tj = PhysicalTJBot()
 let workspaceId = /*#-editable-code*/""/*#-end-editable-code*/
 
 //#-editable-code
+tj.listen { (message) in
+    let response = tj.converse(workspaceId: workspaceId, message: message)
+    if let error = response.error {
+        tj.speak("I'm not sure how to respond to that.")
+    } else if let text = response.text {
+        tj.speak(text)
+    }
+}
 //#-end-editable-code
 
 //: [Next page: TJBot's Adventures with You](@next)
