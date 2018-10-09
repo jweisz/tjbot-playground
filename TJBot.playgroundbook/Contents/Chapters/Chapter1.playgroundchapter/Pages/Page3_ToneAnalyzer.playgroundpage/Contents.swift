@@ -13,7 +13,7 @@ import UIKit
  
  **Goal**: Help Tinker understand the emotional content of Rebus' story using the [Watson Tone Analyzer](https://www.ibm.com/watson/developercloud/tone-analyzer.html) service.
  
- 1. Open the [Watson Tone Analyzer](https://console.ng.bluemix.net/catalog/services/tone-analyzer) page and tap the "Create" button on the bottom right to create an instance of the service. Sign up for a free Bluemix account if you do not have one already.
+ 1. Open the [Watson Tone Analyzer](https://console.bluemix.net/catalog/services/tone-analyzer) page and tap the "Create" button on the bottom right to create an instance of the service. Sign up for a free Bluemix account if you do not have one already.
  
  2. Tap "Service Credentials" in the left-hand sidebar, then tap "View Credentials" under the Actions menu.
  

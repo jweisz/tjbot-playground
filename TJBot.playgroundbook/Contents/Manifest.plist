@@ -11,7 +11,7 @@
 	<key>ContentIdentifier</key>
 	<string>com.ibm.research.tjbot</string>
 	<key>ContentVersion</key>
-	<string>2.3</string>
+	<string>2.4</string>
 	<key>DeploymentTarget</key>
 	<string>ios10.0</string>
 	<key>DevelopmentRegion</key>
@@ -21,7 +21,7 @@
 	<key>Name</key>
 	<string>TJBot</string>
 	<key>SwiftVersion</key>
-	<string>4.0</string>
+	<string>4.2</string>
 	<key>Version</key>
 	<string>3.0</string>
 </dict>

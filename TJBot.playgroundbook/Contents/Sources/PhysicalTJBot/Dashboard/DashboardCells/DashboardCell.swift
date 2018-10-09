@@ -22,7 +22,7 @@ class DashboardCell: UITableViewCell {
         stackView.removeArrangedSubview(displayView)
     }
     
-    public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
         iconView = DashboardIconView(frame: CGRect(x: 18, y: 3, width: 74, height: 76))

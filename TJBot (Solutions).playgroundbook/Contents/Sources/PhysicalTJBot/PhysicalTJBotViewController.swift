@@ -99,30 +99,30 @@ extension PhysicalTJBotViewController: UITableViewDataSource, UITableViewDelegat
         TJLog("creating bluetooth connection view")
         self.createBluetoothConnectionView()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(PhysicalTJBotViewController.keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(PhysicalTJBotViewController.keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(PhysicalTJBotViewController.keyboardWillShow(notification:)), name: UIResponder.keyboardDidShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(PhysicalTJBotViewController.keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     @objc func keyboardWillShow(notification : Notification) {
-        guard let keyboardRect = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue else { return }
+        guard let keyboardRect = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue else { return }
         guard let tableView = self.tableView else { return }
-        tableView.contentInset = UIEdgeInsetsMake(212.0, 0, keyboardRect.height, 0)
+        tableView.contentInset = UIEdgeInsets(top: 212.0, left: 0, bottom: keyboardRect.height, right: 0)
     }
     
     @objc func keyboardWillHide(notification: Notification) {
         guard let tableView = tableView else { return }
-        tableView.contentInset = UIEdgeInsetsMake(212.0, 0, 0, 0)
+        tableView.contentInset = UIEdgeInsets(top: 212.0, left: 0, bottom: 0, right: 0)
     }
     
     func createTableView() {
         let tableView = UITableView(frame: .zero)
         tableView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        tableView.contentInset = UIEdgeInsetsMake(212.0, 0, 0, 0)
+        tableView.contentInset = UIEdgeInsets(top: 212.0, left: 0, bottom: 0, right: 0)
         tableView.contentOffset = CGPoint(x: 0, y: -212)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.estimatedRowHeight = 82.0
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -141,7 +141,7 @@ extension PhysicalTJBotViewController: UITableViewDataSource, UITableViewDelegat
         tableView.register(SpeakDashboardCell.self, forCellReuseIdentifier: "SpeakDashboardCell")
         
         self.view.backgroundColor = UIColor(hexString: "#EAEAEA")
-        self.view.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleRightMargin, UIViewAutoresizing.flexibleLeftMargin]
+        self.view.autoresizingMask = [UIView.AutoresizingMask.flexibleWidth, UIView.AutoresizingMask.flexibleRightMargin, UIView.AutoresizingMask.flexibleLeftMargin]
         self.view.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(tableView)
         
@@ -207,7 +207,7 @@ extension PhysicalTJBotViewController: UITableViewDataSource, UITableViewDelegat
         self.dataSource.add(model: model)
         tableView.beginUpdates()
         let indexes = [IndexPath(row: DashboardDataSource.defaultRowAdd, section: 0)]
-        tableView.insertRows(at: indexes, with: UITableViewRowAnimation.top)
+        tableView.insertRows(at: indexes, with: UITableView.RowAnimation.top)
         tableView.endUpdates()
     }
     

@@ -39,7 +39,7 @@ class TJBotManager: PlaygroundBluetoothCentralManagerDelegate {
         
         tjbot.prepareConnection { error in
             RunLoop.main.perform {
-                if let error = error {
+                if let _ = error {
                     self.tjbot = nil
                 } else {
                     self.tjbot = tjbot

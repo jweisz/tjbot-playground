@@ -38,7 +38,7 @@ public func evaluate(commandList: [String]?, dataList: [AnyObject]?) -> Assessme
         count += 1
     }
     count = 0
-    let colors = colorList.flatMap { $0 as? UIColor }
+    let colors = colorList.compactMap { $0 as? UIColor }
     for color in colors {
         if !checkColorInRange(color: color, count: count) {
             return .failed

@@ -17,7 +17,7 @@ public class LanguageTranslator {
     /// The default HTTP headers for all requests to the service.
     public var defaultHeaders = [String: String]()
     
-    private let domain = "com.ibm.watson.developer-cloud.LanguageTranslatorV2"
+    private let domain = "com.ibm.watson.developer-cloud.LanguageTranslatorV3"
 
     /**
      Create a `LanguageTranslator` object.
@@ -51,9 +51,9 @@ public class LanguageTranslator {
             return
         }
         
-        let urlString = serviceURL + "/v2/translate"
+        let urlString = serviceURL + "/v3/translate?version=2018-05-01"
         let urlComponents = URLComponents(string: urlString)
-       // urlComponents?.queryItems = queryParameters
+        // urlComponents?.queryItems = queryParameters
         guard let url = urlComponents?.url else {
             return
         }
@@ -67,11 +67,11 @@ public class LanguageTranslator {
         //user agent
         let os = ProcessInfo.processInfo.operatingSystemVersion
         let operatingSystemVersion = "\(os.majorVersion).\(os.minorVersion).\(os.patchVersion)"
-        request.setValue("watson-apis-swift-sdk/0.15.1/iOS/\(operatingSystemVersion)", forHTTPHeaderField: "User-Agent")
+        request.setValue("watson-apis-swift-sdk/0.35.0/iOS/\(operatingSystemVersion)", forHTTPHeaderField: "User-Agent")
         
         //authentication
-        let username = Watson.languageTranslator.username
-        let password = Watson.languageTranslator.password
+        let username = "apikey"
+        let password = Watson.languageTranslator.apikey
         let authData = (username + ":" + password).data(using: .utf8)!
         let authString = authData.base64EncodedString()
         request.setValue("Basic \(authString)", forHTTPHeaderField: "Authorization")
@@ -118,7 +118,7 @@ public class LanguageTranslator {
             return
         }
         
-        let urlString = serviceURL + "/v2/identify"
+        let urlString = serviceURL + "/v3/identify?version=2018-05-01"
         let urlComponents = URLComponents(string: urlString)
         // urlComponents?.queryItems = queryParameters
         guard let url = urlComponents?.url else {
@@ -132,22 +132,22 @@ public class LanguageTranslator {
         request.httpBody = body
         
         //user agent
-        //let os = ProcessInfo.processInfo.operatingSystemVersion
-        //let operatingSystemVersion = "\(os.majorVersion).\(os.minorVersion).\(os.patchVersion)"
-        //request.setValue("watson-apis-swift-sdk/0.15.1/iOS/\(operatingSystemVersion)", forHTTPHeaderField: "User-Agent")
+        let os = ProcessInfo.processInfo.operatingSystemVersion
+        let operatingSystemVersion = "\(os.majorVersion).\(os.minorVersion).\(os.patchVersion)"
+        request.setValue("watson-apis-swift-sdk/0.35.0/iOS/\(operatingSystemVersion)", forHTTPHeaderField: "User-Agent")
         
         //authentication
-        let username = Watson.languageTranslator.username
-        let password = Watson.languageTranslator.password
+        let username = "apikey"
+        let password = Watson.languageTranslator.apikey
         let authData = (username + ":" + password).data(using: .utf8)!
         let authString = authData.base64EncodedString()
         request.setValue("Basic \(authString)", forHTTPHeaderField: "Authorization")
         
         //header parameters
-        //let headerParameters = defaultHeaders
-        //for (key, value) in headerParameters {
-        //    request.setValue(value, forHTTPHeaderField: key)
-        //}
+        let headerParameters = defaultHeaders
+        for (key, value) in headerParameters {
+            request.setValue(value, forHTTPHeaderField: key)
+        }
         
         let session = URLSession(configuration: URLSessionConfiguration.default)
         session.dataTask(with: request) { (data, response, error) in

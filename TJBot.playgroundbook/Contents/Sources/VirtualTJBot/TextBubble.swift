@@ -49,12 +49,12 @@ final class TextBubble {
         var lastString = ""
 
         // Fill an array with all words in the string
-        let words = text.characters.split { $0 == " " }.map(String.init)
+        let words = text.split { $0 == " " }.map(String.init)
 
         // Compose lines of text with the width of the bubble (maxLength)
         for word in words {
             stringBuffer = lastString
-            if stringBuffer.characters.count > 0 {
+            if stringBuffer.count > 0 {
                 stringBuffer += " "
             }
 
@@ -67,7 +67,7 @@ final class TextBubble {
                 lastString = stringBuffer
             } else {
                 // If only 1 word then write
-                if lastString.characters.count == 0 {
+                if lastString.count == 0 {
                     count += 1
                     lastString = ""
                 } else {
@@ -78,7 +78,7 @@ final class TextBubble {
         }
 
         // If there are words not assigned, create a line with them
-        if lastString.characters.count > 0 {
+        if lastString.count > 0 {
             count += 1
         }
         var numberOfBubbles = count / maxBubbleLines
@@ -137,12 +137,12 @@ final class TextBubble {
         var lastString = ""
 
         // Fill an array with all words in the string
-        let words = text.characters.split { $0 == " " }.map(String.init)
+        let words = text.split { $0 == " " }.map(String.init)
 
         // Compose lines of text with the width of the bubble (maxLength)
         for word in words {
             stringBuffer = lastString
-            if stringBuffer.characters.count > 0 {
+            if stringBuffer.count > 0 {
                 stringBuffer += " "
             }
 
@@ -156,7 +156,7 @@ final class TextBubble {
                 lastString = stringBuffer
             } else {
                 // If only 1 word then write
-                if lastString.characters.count == 0 {
+                if lastString.count == 0 {
                     linesBuffer.append(currentLine)
                     lastString = ""
                 } else {
@@ -167,7 +167,7 @@ final class TextBubble {
         }
 
         // If there are words not assigned, create a line with them
-        if lastString.characters.count > 0 {
+        if lastString.count > 0 {
             linesBuffer.append(textLine(lastString))
         }
     }

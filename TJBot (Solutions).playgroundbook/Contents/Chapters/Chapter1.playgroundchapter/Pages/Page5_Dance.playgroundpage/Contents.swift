@@ -13,11 +13,11 @@ import UIKit
  
  **Goal**: Perform the Dance of the TJBot 🤖🕺
  
- 1. First, you must shine red.
+ 1. First, you have to shine red.
  2. Next, wave your arm twice.
- 3. Shine yellow.
+ 3. Make a bright yellow light.
  4. Put your arm down.
- 5. Shine blue, then raise your arm.
+ 5. Emit blue light, then raise your arm.
  
  */
 let tinker = VirtualTJBot()

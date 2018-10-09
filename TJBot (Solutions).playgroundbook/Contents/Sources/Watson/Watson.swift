@@ -7,7 +7,7 @@ import Foundation
 import PlaygroundSupport
 
 public struct Watson {
-    public struct Credential {
+    public struct UsernamePasswordCredential {
         private let service: String
         
         init(service: String) {
@@ -46,6 +46,30 @@ public struct Watson {
         }
     }
     
-    public static var toneAnalyzer = Credential(service: "toneAnalyzer")
-    public static var languageTranslator = Credential(service: "languageTranslator")
+    public struct APIKeyCredential {
+        private let service: String
+        
+        init(service: String) {
+            self.service = service
+        }
+        
+        public var apikey: String {
+            get {
+                if case let .string(apikey)? = PlaygroundKeyValueStore.current["\(service).apikey"] {
+                    return apikey
+                }
+                return ""
+            }
+            set {
+                PlaygroundKeyValueStore.current["\(service).apikey"] = .string(newValue)
+                
+                // playground bug -- need to sleep for a second so the KVS write takes effect,
+                // otherwise, doing a KVS read too quickly will result in the value not being read
+                Thread.sleep(forTimeInterval: 1.0)
+            }
+        }
+    }
+    
+    public static var toneAnalyzer = UsernamePasswordCredential(service: "toneAnalyzer")
+    public static var languageTranslator = APIKeyCredential(service: "languageTranslator")
 }

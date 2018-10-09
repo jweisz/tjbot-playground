@@ -8,7 +8,7 @@ import PlaygroundSupport
 
 public var pageName: String = "Page_4_SecretDance"
 public var successMessage: AssessmentSuccess = "Congratulations, Tinker is now quite the polyglot! \n\n[**Next Page**](@next)"
-public var successBeeCommand: RebusTheBeeCommand = .beeSpeak("First, you must shine red, Next, wave your arm twice, Shine yellow, Put your arm down Shine blue, then raise your arm")
+public var successBeeCommand: RebusTheBeeCommand?
 public var successBotCommand: TJBotInternalCommand?
 
 /**
@@ -28,14 +28,14 @@ public func evaluate(commandList: [String]?, dataList: [AnyObject]?) -> Assessme
     guard  filteredList.count == 5 else { return .failed }
     //check the translated list, make sure something is there
     guard let translationList = dataList else {
-            return .failed
+        return .failed
     }
     let translated = [
-        "First, you must shine red", // French
+        "First, you have to shine red", // French
         "Next, wave your arm twice", // German
-        "Shine yellow", // Korean
+        "Make a bright yellow light", // Korean
         "Put your arm down", // Portuguese
-        "Shine blue, then raise your arm" // Italian
+        "Emit blue light, then raise your arm" // Italian
     ]
     var count = 0
     //loop through the translatedList and check to see if the answers are correct

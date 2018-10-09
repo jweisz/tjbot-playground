@@ -90,15 +90,15 @@ extension UIColor {
         
         if hexString.hasPrefix("#") {
             let index =  hexString.index(hexString.startIndex, offsetBy: 1)
-            let hex = hexString.substring(from: index)
+            let hex = String(hexString[index...])
             let scanner = Scanner(string: hex)
             var hexValue: CUnsignedLongLong = 0
             if scanner.scanHexInt64(&hexValue) {
-                if hex.characters.count == 6 {
+                if hex.count == 6 {
                     red   = CGFloat((hexValue & 0xFF0000) >> 16) / 255.0
                     green = CGFloat((hexValue & 0x00FF00) >> 8)  / 255.0
                     blue  = CGFloat(hexValue & 0x0000FF) / 255.0
-                } else if hex.characters.count == 8 {
+                } else if hex.count == 8 {
                     red   = CGFloat((hexValue & 0xFF000000) >> 24) / 255.0
                     green = CGFloat((hexValue & 0x00FF0000) >> 16) / 255.0
                     blue  = CGFloat((hexValue & 0x0000FF00) >> 8)  / 255.0

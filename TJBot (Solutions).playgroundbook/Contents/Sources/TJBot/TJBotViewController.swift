@@ -235,7 +235,7 @@ public class TJBotViewController: UIViewController, PlaygroundLiveViewMessageHan
     
     private func sendResponse<T>(_ objects: [T]) where T: JSONRepresentable {
         TJLog("TJBotViewController sendResponse: sending a list of JSON objects: \(objects)")
-        let jsonObjectData = objects.flatMap { $0.asJSONData() }
+        let jsonObjectData = objects.compactMap { $0.asJSONData() }
         let playgroundData = jsonObjectData.map { PlaygroundValue.data($0) }
         let responseDict = PlaygroundValue.array(playgroundData)
         self.send(responseDict)
