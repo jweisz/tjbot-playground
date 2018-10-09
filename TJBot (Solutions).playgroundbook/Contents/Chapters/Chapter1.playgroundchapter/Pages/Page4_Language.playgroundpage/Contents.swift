@@ -25,7 +25,7 @@ import UIKit
  3. Fill in the `apikey` credential below. Note that this credential is saved for future exercises and if you ever need to change your credential, you will need to re-run this page.
  */
 Watson.languageTranslator.apikey =
-    /*#-editable-code*/"CiMiAiJ1c3qXQ1M5bQ9RywpOg8X7OolIt9XdhOperFRw"/*#-end-editable-code*/
+    /*#-editable-code*/""/*#-end-editable-code*/
 /*:
  
  4. Use the `tinker.identifyLanguage(text:)` and `tinker.translate(text:sourceLanguage:targetLanguage:)` methods to translate Rebus' instructions into English.
