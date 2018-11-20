@@ -8,11 +8,13 @@ Interact with [TJBot](http://ibm.biz/mytjbot) from your iPad in this Swift playg
 
 The TJBot playground book communicates with your TJBot using Bluetooth Low Energy (BLE), so you can program your TJBot while sitting next to him!
 
-> This playground book requires Swift Playgrounds 1.6. Please see [prior releases](https://github.com/jweisz/tjbot-playground/releases/) for a version that is compatible with earlier versions of Swift Playgrounds.
+> This playground book requires Swift Playgrounds 2.2. Please see [prior releases](https://github.com/jweisz/tjbot-playground/releases/) for a version that is compatible with earlier versions of Swift Playgrounds.
 
 # Installation
 
-The easiest way to get this playground on your iPad is to [download the latest release](https://github.com/jweisz/tjbot-playground/releases) to your Mac and then use AirDrop to copy the playground to your iPad. After downloading, right click the “TJBot.playgroundbook” file, and choose “Share > AirDrop.” A list will open up which should show your iPad. Click your iPad to transfer the Playground.
+The easiest way to get this playground on your iPad is to subscribe to it within the Playgrounds app.
+
+Alternatively, you can [download the latest release](https://github.com/jweisz/tjbot-playground/releases) to your Mac and then use AirDrop to copy the playground to your iPad. After downloading, right click the “TJBot.playgroundbook” file, and choose “Share > AirDrop.” A list will open up which should show your iPad. Click your iPad to transfer the Playground.
 
 > Note: Make sure AirDrop on your iPad is turned on!
 
