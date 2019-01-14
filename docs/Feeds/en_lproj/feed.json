@@ -7,11 +7,11 @@
             "description": "Join Tinker on his quest to become a real TJBot by teaching him how to speak, listen, and understand language using IBM Watson services. Once you've mastered the basics, build your own TJBot and program it with your iPad!\n\nThis playground does not require a TJBot to get started.",
             "difficultyLevel": "beginner",
             "contentIdentifier": "com.ibm.research.tjbot",
-            "contentVersion": "2.4",
-            "sha512": "a32d6e897f0041f4eda3922538fa67f2a45ca9ba527e7154f7db786b1578818bcf9143c67e309604dcbbb56e8841ba51b9dc592cbe31ec661913dea9df79d375",
-            "url": "https://github.com/jweisz/tjbot-playground/releases/download/v2.4/TJBot.playgroundbook.zip",
+            "contentVersion": "2.5",
+            "sha512": "24329c8f54be4cdd7b5bacb3118ef467915bcf964d46bfd74a9de70ae17bdaec90602a66b8264ec090308c4fe232a8192e66ecd1ee3577cfea136c93f314bfc9",
+            "url": "https://github.com/jweisz/tjbot-playground/releases/download/v2.5/TJBot.playgroundbook.zip",
             "publishedDate": "2017-06-02T12:00:00+00:00",
-            "lastUpdatedDate": "2018-11-19T12:00:00+00:00",
+            "lastUpdatedDate": "2019-01-14T12:00:00+00:00",
             "bannerImageURL": "../../Content/TJBot/en_lproj/banner_2x.png",
             "thumbnailURL": "../../Content/TJBot/en_lproj/tjbot_2x.png",
             "additionalInformation": [
@@ -21,7 +21,7 @@
                 },
                 {
                     "name": "Version:",
-                    "value": "2.4"
+                    "value": "2.5"
                 },
                 {
                     "type": "date",
