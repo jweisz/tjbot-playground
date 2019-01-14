@@ -21,7 +21,7 @@
 ```
 let dict: [Emotion: Double] = [
     .anger: toneResponse.emotion.anger, 
-    .disgust: toneResponse.emotion.disgust,
+    .fear: toneResponse.emotion.fear,
     ...
 ]
 ```</string>
@@ -31,7 +31,6 @@ let dict: [Emotion: Double] = [
 			<string>```
 let dict: [Emotion: Double] = [
     .anger: toneResponse.emotion.anger,
-    .disgust: toneResponse.emotion.disgust,
     .fear: toneResponse.emotion.fear,
     .joy: toneResponse.emotion.joy,
     .sadness: toneResponse.emotion.sadness

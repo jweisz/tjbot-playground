@@ -6,7 +6,6 @@ func getPrimaryEmotion(from toneResponse: ToneResponse) -> Emotion {
     
     let dict: [Emotion: Double] = [
         .anger: toneResponse.emotion.anger,
-        .disgust: toneResponse.emotion.disgust,
         .fear: toneResponse.emotion.fear,
         .joy: toneResponse.emotion.joy,
         .sadness: toneResponse.emotion.sadness
@@ -30,8 +29,6 @@ for sentence in story {
             break
         case .anger:
             tinker.shine(color: UIColor.red)
-        case .disgust:
-            tinker.shine(color: UIColor.green)
         case .fear:
             tinker.shine(color: UIColor.purple)
         case .joy:

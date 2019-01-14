@@ -23,18 +23,18 @@ public var hints: AssessmentHints = [
  * - accepts
  */
 public func evaluate(commandList: [String]?, dataList: [AnyObject]?) -> AssessmentResult {
-    //this should contain 5 shines
+    //this should contain 4 shines
     guard let commandList = commandList,
                 commandList.contains("shine"),
-                commandList.count == 5 else {
+                commandList.count == 4 else {
         return .failed
     }
     for command in commandList {
         guard command == "shine" else { return .failed }
     }
-    //this should contain 5 specific colors
+    //this should contain 4 specific colors
     guard let colorList = dataList,
-              colorList.count == 5 else {
+              colorList.count == 4 else {
         return .failed
     }
     var count = 0
@@ -62,23 +62,18 @@ func checkColorInRange(color: UIColor, count: Int) -> Bool {
             return true
         }
     case 1:
-        //disgust check for green
-        if hueDegrees > 70 && hueDegrees < 160 {
-            return true
-        }
-    case 2:
         //Anger
         //check if the color is red
         if hueDegrees < 35 || hueDegrees > 340 {
             return true
         }
-    case 3:
+    case 2:
        //Fear
         //check if the color is Magenta
         if hueDegrees > 270 && hueDegrees < 340 {
             return true
         }
-    case 4:
+    case 3:
         //check if the color is blue
         if hueDegrees > 170 && hueDegrees < 255 {
             return true
@@ -91,7 +86,6 @@ func checkColorInRange(color: UIColor, count: Int) -> Bool {
 
 //order that is should come in
 //joy
-//disgust
 //anger
 //fear 
 //sadness

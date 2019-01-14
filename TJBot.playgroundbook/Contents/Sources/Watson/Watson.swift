@@ -70,6 +70,6 @@ public struct Watson {
         }
     }
     
-    public static var toneAnalyzer = UsernamePasswordCredential(service: "toneAnalyzer")
+    public static var toneAnalyzer = APIKeyCredential(service: "toneAnalyzer")
     public static var languageTranslator = APIKeyCredential(service: "languageTranslator")
 }

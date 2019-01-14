@@ -8,7 +8,6 @@ import SceneKit
 
 enum BotEmotion: String {
     case anger
-    case disgust
     case fear
     case joy
     case sadness
@@ -16,7 +15,6 @@ enum BotEmotion: String {
 
 enum BotEmotionImages: String {
     case anger = "Anger.png"
-    case disgust = "Disgust.png"
     case fear = "Fear.png"
     case joy = "Joy.png"
     case sadness = "Sadness.png"

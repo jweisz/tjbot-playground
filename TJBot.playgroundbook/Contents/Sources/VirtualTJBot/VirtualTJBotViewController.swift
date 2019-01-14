@@ -607,9 +607,6 @@ extension VirtualTJBotViewController: Emotes {
         case BotEmotion.anger.rawValue:
             emotionController.showEmotion(.anger)
             changeLedColor(UIColor.red)
-        case BotEmotion.disgust.rawValue:
-            emotionController.showEmotion(.disgust)
-            changeLedColor(UIColor.init(red: 0, green: 0.7, blue: 0, alpha: 0))
         case BotEmotion.fear.rawValue:
             emotionController.showEmotion(.fear)
             changeLedColor(UIColor.magenta)

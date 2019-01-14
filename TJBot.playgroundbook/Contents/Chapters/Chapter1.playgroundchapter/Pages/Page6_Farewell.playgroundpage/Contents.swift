@@ -20,7 +20,7 @@ import UIKit
 //#-code-completion(everything, hide)
 //#-code-completion(currentmodule, show)
 //#-code-completion(identifier, hide, page, proxy)
-//#-code-completion(identifier, show, tinker, ., rebus, shine(color:), pulse(color:duration:), sleep(duration:), raiseArm(), lowerArm(), wave(), analyzeTone(text:), speak(_:), identifyLanguage(text:), translate(text:sourceLanguage:targetLanguage:), sorted(), description, ToneResponse, error, emotion, language, social, anger, disgust, fear, joy, sadness, analytical, confident, tentative, openness, conscientiousness, extraversion, agreeableness, emotionalRange, TJTranslationLanguage, unknown, arabic, chinese, german, english, french, italian, japanese, korean, spanish, portuguese, languageName, LanguageIdentification, language, confidence)
+//#-code-completion(identifier, show, tinker, ., rebus, shine(color:), pulse(color:duration:), sleep(duration:), raiseArm(), lowerArm(), wave(), analyzeTone(text:), speak(_:), identifyLanguage(text:), translate(text:sourceLanguage:targetLanguage:), sorted(), description, ToneResponse, error, emotion, language, social, anger, fear, joy, sadness, analytical, confident, tentative, openness, conscientiousness, extraversion, agreeableness, emotionalRange, TJTranslationLanguage, unknown, arabic, chinese, german, english, french, italian, japanese, korean, spanish, portuguese, languageName, LanguageIdentification, language, confidence)
 //#-code-completion(literal, show, color)
 let tinker = VirtualTJBot()
 

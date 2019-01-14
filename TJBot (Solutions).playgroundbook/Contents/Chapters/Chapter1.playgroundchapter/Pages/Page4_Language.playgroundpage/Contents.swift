@@ -18,7 +18,7 @@ import UIKit
  
  1. Open the [Watson Language Translator](https://console.bluemix.net/catalog/services/language-translator) page and tap the "Create" button on the bottom right to create an instance of the service. Sign up for a free Bluemix account if you do not have one already.
  
- 2. Tap "Service Credentials" in the left-hand sidebar, then tap "View Credentials" under the Actions menu.
+ 2. Tap "Manage" in the left-hand sidebar, then tap "Show Credentials".
  
  ![Language Translator Credentials](language-translator-credentials.png)
  

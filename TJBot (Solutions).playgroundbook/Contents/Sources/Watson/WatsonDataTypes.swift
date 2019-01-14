@@ -10,7 +10,6 @@ import PlaygroundSupport
 
 public struct EmotionTones {
     public var anger: Double = 0.0
-    public var disgust: Double = 0.0
     public var fear: Double = 0.0
     public var joy: Double = 0.0
     public var sadness: Double = 0.0
@@ -22,18 +21,9 @@ public struct LanguageTones {
     public var tentative: Double = 0.0
 }
 
-public struct SocialTones {
-    public var openness: Double = 0.0
-    public var conscientiousness: Double = 0.0
-    public var extraversion: Double = 0.0
-    public var agreeableness: Double = 0.0
-    public var emotionalRange: Double = 0.0
-}
-
 public struct ToneResponse: PlaygroundSerializable {
     public var emotion = EmotionTones()
     public var language = LanguageTones()
-    public var social = SocialTones()
     public var error: TJBotError? = nil
     
     public init(response: AnyObject) {
@@ -49,70 +39,30 @@ public struct ToneResponse: PlaygroundSerializable {
             return
         }
         
-        guard let toneCategories = documentTone["tone_categories"] as? [AnyObject] else {
+        guard let tones = documentTone["tones"] as? [AnyObject] else {
             self.error = TJBotError.unableToDeserializeTJBotResponse
             return
         }
         
-        for category in toneCategories {
-            guard let categoryId = category["category_id"] as? String else { continue }
-            switch categoryId {
-            case "emotion_tone":
-                guard let tones = category["tones"] as? [AnyObject] else { continue }
-                for tone in tones {
-                    guard let toneId = tone["tone_id"] as? String else { continue }
-                    guard let score = tone["score"] as? Double else { continue }
-                    switch toneId {
-                    case "anger":
-                        self.emotion.anger = score
-                    case "disgust":
-                        self.emotion.disgust = score
-                    case "fear":
-                        self.emotion.fear = score
-                    case "joy":
-                        self.emotion.joy = score
-                    case "sadness":
-                        self.emotion.sadness = score
-                    default:
-                        break
-                    }
-                }
-            case "language_tone":
-                guard let tones = category["tones"] as? [AnyObject] else { continue }
-                for tone in tones {
-                    guard let toneId = tone["tone_id"] as? String else { continue }
-                    guard let score = tone["score"] as? Double else { continue }
-                    switch toneId {
-                    case "analytical":
-                        self.language.analytical = score
-                    case "confident":
-                        self.language.confident = score
-                    case "tentative":
-                        self.language.tentative = score
-                    default:
-                        break
-                    }
-                }
-            case "social_tone":
-                guard let tones = category["tones"] as? [AnyObject] else { continue }
-                for tone in tones {
-                    guard let toneId = tone["tone_id"] as? String else { continue }
-                    guard let score = tone["score"] as? Double else { continue }
-                    switch toneId {
-                    case "openness_big5":
-                        self.social.openness = score
-                    case "conscientiousness_big5":
-                        self.social.conscientiousness = score
-                    case "extraversion_big5":
-                        self.social.extraversion = score
-                    case "agreeableness_big5":
-                        self.social.agreeableness = score
-                    case "emotional_range_big5":
-                        self.social.emotionalRange = score
-                    default:
-                        break
-                    }
-                }
+        for tone in tones {
+            guard let toneId = tone["tone_id"] as? String else { continue }
+            guard let score = tone["score"] as? Double else { continue }
+            
+            switch toneId {
+            case "anger":
+                self.emotion.anger = score
+            case "fear":
+                self.emotion.fear = score
+            case "joy":
+                self.emotion.joy = score
+            case "sadness":
+                self.emotion.sadness = score
+            case "analytical":
+                self.language.analytical = score
+            case "confident":
+                self.language.confident = score
+            case "tentative":
+                self.language.tentative = score
             default:
                 break
             }
@@ -131,35 +81,14 @@ extension ToneResponse: JSONRepresentable {
         } else {
             return [
                 "document_tone": [
-                    "tone_categories": [
-                        [
-                            "category_id": "emotion_tone",
-                            "tones": [
-                                ["tone_id": "anger", "score": self.emotion.anger],
-                                ["tone_id": "disgust", "score": self.emotion.disgust],
-                                ["tone_id": "fear", "score": self.emotion.fear],
-                                ["tone_id": "joy", "score": self.emotion.joy],
-                                ["tone_id": "sadness", "score": self.emotion.sadness]
-                            ]
-                        ],
-                        [
-                            "category_id": "language_tone",
-                            "tones": [
-                                ["tone_id": "analytical", "score": self.language.analytical],
-                                ["tone_id": "confident", "score": self.language.confident],
-                                ["tone_id": "tentative", "score": self.language.tentative]
-                            ]
-                        ],
-                        [
-                            "category_id": "social_tone",
-                            "tones": [
-                                ["tone_id": "openness_big5", "score": self.social.openness],
-                                ["tone_id": "conscientiousness_big5", "score": self.social.conscientiousness],
-                                ["tone_id": "extraversion_big5", "score": self.social.extraversion],
-                                ["tone_id": "agreeableness_big5", "score": self.social.agreeableness],
-                                ["tone_id": "emotional_range_big5", "score": self.social.emotionalRange]
-                            ]
-                        ]
+                    "tones": [
+                        ["tone_id": "anger", "score": self.emotion.anger],
+                        ["tone_id": "fear", "score": self.emotion.fear],
+                        ["tone_id": "joy", "score": self.emotion.joy],
+                        ["tone_id": "sadness", "score": self.emotion.sadness],
+                        ["tone_id": "analytical", "score": self.language.analytical],
+                        ["tone_id": "confident", "score": self.language.confident],
+                        ["tone_id": "tentative", "score": self.language.tentative]
                     ]
                 ]
             ]

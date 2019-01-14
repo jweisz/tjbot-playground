@@ -17,7 +17,7 @@ public class ToneAnalyzer {
     /// The default HTTP headers for all requests to the service.
     public var defaultHeaders = [String: String]()
     
-    private let version: String = "2016-05-19"
+    private let version: String = "2017-09-21"
     private let domain = "com.ibm.watson.developer-cloud.ToneAnalyzerV3"
     
     /**
@@ -66,7 +66,6 @@ public class ToneAnalyzer {
         if let sentences = sentences {
             queryParameters.append(URLQueryItem(name: "sentences", value: "\(sentences)"))
         }
-
         
         let urlString = serviceURL + "/v3/tone"
         var urlComponents = URLComponents(string: urlString)
@@ -83,11 +82,11 @@ public class ToneAnalyzer {
         //user agent
         let os = ProcessInfo.processInfo.operatingSystemVersion
         let operatingSystemVersion = "\(os.majorVersion).\(os.minorVersion).\(os.patchVersion)"
-        request.setValue("watson-apis-swift-sdk/0.15.1/iOS/\(operatingSystemVersion)", forHTTPHeaderField: "User-Agent")
+        request.setValue("watson-apis-swift-sdk/0.35.0/iOS/\(operatingSystemVersion)", forHTTPHeaderField: "User-Agent")
         
         //authentication
-        let username = Watson.toneAnalyzer.username
-        let password = Watson.toneAnalyzer.password
+        let username = "apikey"
+        let password = Watson.toneAnalyzer.apikey
         let authData = (username + ":" + password).data(using: .utf8)!
         let authString = authData.base64EncodedString()
         request.setValue("Basic \(authString)", forHTTPHeaderField: "Authorization")
@@ -97,7 +96,6 @@ public class ToneAnalyzer {
         for (key, value) in headerParameters {
             request.setValue(value, forHTTPHeaderField: key)
         }
-        
         
         let session = URLSession(configuration: URLSessionConfiguration.default)
         session.dataTask(with: request) { (data, response, error) in
