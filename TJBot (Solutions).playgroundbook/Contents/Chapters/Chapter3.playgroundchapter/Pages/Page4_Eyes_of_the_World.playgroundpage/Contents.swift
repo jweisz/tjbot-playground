@@ -14,7 +14,7 @@ PlaygroundPage.current.needsIndefiniteExecution = true
  * Callout(🤖 TJBot Hardware):
  In order to complete this exercise, please ensure your TJBot has a microphone, camera, and speaker.
  
- Behind TJBot's left eye there is a camera that allows him to see objects in the real world. Using the [Watson Visual Recognition](https://www.ibm.com/watson/developercloud/visual-recognition.html) service, TJBot is able to interpret and understand what he sees.
+ Behind TJBot's left eye there is a camera that allows him to see objects in the real world. Using the [Watson Visual Recognition](https://www.ibm.com/watson/services/visual-recognition/) service, TJBot is able to interpret and understand what he sees.
  
  The method `tj.see()` enables TJBot to see. It tells TJBot to take a picture and interpret it with Watson. It returns a `VisionResponse`, which contains a list of objects TJBot recognized, along with a score that indicates how confident he is about whether or not he identified each object correctly. Confidence levels are in the range [0.0, 1.0], with 1.0 being the highest confidence.
  

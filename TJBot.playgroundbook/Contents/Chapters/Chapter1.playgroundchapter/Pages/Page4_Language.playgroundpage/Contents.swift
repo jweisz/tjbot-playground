@@ -14,7 +14,7 @@ import UIKit
  * callout(🐝 Rebus' message):
  Tinker, my friend, I have traveled far and wide in the deep web and have discovered a secret, magical dance that will allow you to transform into a real, live TJBot!  Isn't that exciting?  Here are the dance moves you need to perform. D'abord, tu dois briller rouge. Als nächstes, winken Sie den Arm zweimal. 밝은 노란색으로 밝은 빛을 만들다. Coloque seu braço para baixo. Emetti luce blu, poi alza il braccio. It's that simple!
  
- **Goal**: Rebus told Tinker the instructions for the secret dance, but Tinker didn't understand what she said! Teach Tinker how to interpret the secret dance moves using the [Watson Language Translator](https://www.ibm.com/watson/developercloud/language-translator.html) service.
+ **Goal**: Rebus told Tinker the instructions for the secret dance, but Tinker didn't understand what she said! Teach Tinker how to interpret the secret dance moves using the [Watson Language Translator](https://www.ibm.com/watson/services/language-translator/) service.
  
  1. Open the [Watson Language Translator](https://console.bluemix.net/catalog/services/language-translator) page and tap the "Create" button on the bottom right to create an instance of the service. Sign up for a free Bluemix account if you do not have one already.
  

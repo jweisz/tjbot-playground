@@ -14,7 +14,7 @@ PlaygroundPage.current.needsIndefiniteExecution = true
  * Callout(🤖 TJBot Hardware):
  In order to complete this exercise, please ensure your TJBot has an LED and a microphone.
  
- TJBot can listen to your voice and understand what you say using the [Watson Speech to Text](https://www.ibm.com/watson/developercloud/speech-to-text.html) service.
+ TJBot can listen to your voice and understand what you say using the [Watson Speech to Text](https://www.ibm.com/watson/services/speech-to-text/) service.
  
  **Goal**: Control the color of your TJBot's LED with your voice. Use the `tj.listen(_:)` method to listen for a speech command to change the LED color (hint: we like to use the phrasing, "turn the light yellow"). Determine what color to change the LED, and use `tj.shine(color:)` to change the color.
  

@@ -13,7 +13,7 @@ PlaygroundPage.current.assessmentStatus = .pass(message: nil)
  * Callout(🤖 TJBot Hardware):
  In order to complete this exercise, please ensure your TJBot has a speaker.
  
- Your TJBot now has the ability to speak! Using the [Watson Text to Speech](https://www.ibm.com/watson/developercloud/text-to-speech.html) service, your TJBot is able to express himself with his own voice.
+ Your TJBot now has the ability to speak! Using the [Watson Text to Speech](https://www.ibm.com/watson/services/text-to-speech/) service, your TJBot is able to express himself with his own voice.
  
  **Goal**: Have your TJBot tell you the details of his life's story aloud. Use the `generateLifeStory()` method to generate TJBot's life story, and the `tj.speak()` method to make your TJBot speak!
  */

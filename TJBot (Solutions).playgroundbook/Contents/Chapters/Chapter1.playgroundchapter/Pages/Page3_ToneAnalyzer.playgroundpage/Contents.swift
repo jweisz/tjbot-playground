@@ -11,7 +11,7 @@ import UIKit
 /*:
  Rebus begins telling Tinker about all the crazy things she witnessed during her travels. Her tales take Tinker on a roller coaster of emotion.
  
- **Goal**: Help Tinker understand the emotional content of Rebus' story using the [Watson Tone Analyzer](https://www.ibm.com/watson/developercloud/tone-analyzer.html) service.
+ **Goal**: Help Tinker understand the emotional content of Rebus' story using the [Watson Tone Analyzer](https://www.ibm.com/watson/services/tone-analyzer/) service.
  
  1. Open the [Watson Tone Analyzer](https://console.bluemix.net/catalog/services/tone-analyzer) page and tap the "Create" button on the bottom right to create an instance of the service. Sign up for a free Bluemix account if you do not have one already.
  

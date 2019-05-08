@@ -14,7 +14,7 @@ PlaygroundPage.current.needsIndefiniteExecution = true
  * Callout(🤖 TJBot Hardware):
  In order to complete this exercise, please ensure your TJBot has a microphone and a speaker.
  
- Did you know you can turn TJBot into a chatbot? TJBot has the ability to engage in a back-and-forth conversation using the [Watson Assistant](https://www.ibm.com/watson/developercloud/conversation.html) service.
+ Did you know you can turn TJBot into a chatbot? TJBot has the ability to engage in a back-and-forth conversation using the [Watson Assistant](https://www.ibm.com/cloud/watson-assistant/) service.
  
  * Callout(⚠️ Prerequisite):
  In order to complete this exercise, you will need to define a conversation flow in the [Watson Assistant tool](https://www.ibmwatsonconversation.com/login). Step-by-step instructions for how to do this can be found in this [Instructable](http://www.instructables.com/id/Build-a-Talking-Robot-With-Watson-and-Raspberry-Pi/) (step 6). Log into the [Watson Assistant tool](https://www.ibmwatsonconversation.com/login) tool to create a conversation flow, and take note of the Workspace ID. Note that you need a [Bluemix](http://bluemix.net) account to be able to use the Watson Assistant tool.
