@@ -4,7 +4,7 @@
 
 <img src="images/playground.png" width="75%"/>
 
-Interact with [TJBot](http://ibm.biz/mytjbot) from your iPad in this Swift playground book! This project showcases how Swift can be used to interact with IoT devices such as TJBot. Learn how to program TJBot and make him come to life using IBM Watson services such as [Speech to Text](https://www.ibm.com/watson/developercloud/speech-to-text.html), [Visual Recognition](https://www.ibm.com/watson/developercloud/visual-recognition.html), [Language Translator](https://www.ibm.com/watson/developercloud/language-translator.html), and more!
+Interact with [TJBot](http://ibm.biz/mytjbot) from your iPad in this Swift playground book! This project showcases how Swift can be used to interact with IoT devices such as TJBot. Learn how to program TJBot and make him come to life using IBM Watson services such as [Speech to Text](https://www.ibm.com/watson/services/speech-to-text/), [Visual Recognition](https://www.ibm.com/watson/services/visual-recognition/), [Language Translator](https://www.ibm.com/watson/services/language-translator/), and more!
 
 The TJBot playground book communicates with your TJBot using Bluetooth Low Energy (BLE), so you can program your TJBot while sitting next to him!
 
